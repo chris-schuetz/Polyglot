@@ -40,6 +40,7 @@ public sealed class Screen : IScreen, IConsumer<StatusMessage>, IConsumer<ShowHo
     private readonly WorkspacePage _workspacePage;
     private readonly ScreenLayout _screenLayout;
     private IRenderable? _currentPageContent;
+    private readonly List<IPage> _pageStack = new();
 
     public Screen(
         ILogger<Screen> logger,
@@ -56,7 +57,9 @@ public sealed class Screen : IScreen, IConsumer<StatusMessage>, IConsumer<ShowHo
         _preferencesPage = preferencesPage;
         _workspacePage = workspacePage;
 
-        CurrentPage = workspacePage;
+        // Initialize page stack with the workspace as the root page
+        _pageStack.Add(_workspacePage);
+        CurrentPage = _pageStack[^1];
 
         _optionsSubscription = _options.OnChange(UpdateTheme);
         UpdateTheme(_options.CurrentValue, null);
@@ -66,19 +69,19 @@ public sealed class Screen : IScreen, IConsumer<StatusMessage>, IConsumer<ShowHo
 
     public Task OnHandle(OpenPreferencesCommand message, CancellationToken cancellationToken)
     {
-        CurrentPage = _preferencesPage;
+        ShowPage(_preferencesPage);
         return Task.CompletedTask;
     }
 
     public Task OnHandle(ShowHotKeysCommand message, CancellationToken cancellationToken)
     {
-        CurrentPage = _hotKeyPage;
+        ShowPage(_hotKeyPage);
         return Task.CompletedTask;
     }
 
     public Task OnHandle(MotionBackCommand message, CancellationToken cancellationToken)
     {
-        CurrentPage = _workspacePage;
+        GoBack();
         return Task.CompletedTask;
     }
 
@@ -152,6 +155,26 @@ public sealed class Screen : IScreen, IConsumer<StatusMessage>, IConsumer<ShowHo
     {
         // TODO shorten status if necessary
         _screenLayout.RenderStatusBar(StatusBarHintText, StatusBarStatusText, StatusBarStatusMessageType);
+    }
+
+    private void ShowPage(IPage page)
+    {
+        var index = _pageStack.FindIndex(p => ReferenceEquals(p, page));
+        if (index >= 0)
+        {
+            _pageStack.RemoveAt(index);
+        }
+        _pageStack.Add(page);
+        CurrentPage = _pageStack[^1];
+    }
+
+    private void GoBack()
+    {
+        if (_pageStack.Count > 1)
+        {
+            _pageStack.RemoveAt(_pageStack.Count - 1);
+        }
+        CurrentPage = _pageStack[^1];
     }
 
     public void Dispose()
