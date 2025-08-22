@@ -1,0 +1,47 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+
+        <!-- NuGet package properties -->
+        <PackageId>Preferences.Common</PackageId>
+        <Authors>Christopher Schuetz</Authors>
+        <Description>Common helpers for preferences management</Description>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageProjectUrl>https://github.com/chris-schuetz/Preferences</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/chris-schuetz/Preferences.git</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        <PackageTags>preferences;settings</PackageTags>
+
+        <!-- GitVersion configuration -->
+        <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+        <UpdateAssemblyInfo>true</UpdateAssemblyInfo>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <PackageVersion>$(GitVersion_NuGetVersion)</PackageVersion>
+        <Version>$(GitVersion_FullSemVer)</Version>
+        <AssemblyVersion>$(GitVersion_AssemblySemVer)</AssemblyVersion>
+        <FileVersion>$(GitVersion_AssemblySemFileVer)</FileVersion>
+        <InformationalVersion>$(GitVersion_InformationalVersion)</InformationalVersion>
+        <LangVersion>13</LangVersion>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <None Include="docs\README.md" Pack="true" PackagePath="\"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.Extensions.Configuration" Version="9.0.8"/>
+        <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="9.0.8"/>
+        <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="9.0.8"/>
+        <PackageReference Include="Microsoft.Extensions.Configuration.CommandLine" Version="9.0.8"/>
+        <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="9.0.8"/>
+        <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.8"/>
+        <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.8"/>
+        <PackageReference Include="Microsoft.Extensions.Logging" Version="9.0.8"/>
+        <PackageReference Include="SlimMessageBus" Version="3.0.0"/>
+    </ItemGroup>
+
+</Project>

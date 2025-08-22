@@ -1,0 +1,57 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+
+        <!-- NuGet package properties -->
+        <PackageId>Preferences.Avalonia</PackageId>
+        <Authors>Christopher Schuetz</Authors>
+        <Description>Preferences management for Avalonia applications</Description>
+        <PackageReadmeFile>README.md</PackageReadmeFile> 
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageProjectUrl>https://github.com/chris-schuetz/Preferences</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/chris-schuetz/Preferences.git</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        <PackageTags>avalonia;preferences;settings</PackageTags>
+
+        <!-- GitVersion configuration -->
+        <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+        <UpdateAssemblyInfo>true</UpdateAssemblyInfo>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <PackageVersion>$(GitVersion_NuGetVersion)</PackageVersion>
+        <Version>$(GitVersion_FullSemVer)</Version>
+        <AssemblyVersion>$(GitVersion_AssemblySemVer)</AssemblyVersion>
+        <FileVersion>$(GitVersion_AssemblySemFileVer)</FileVersion>
+        <InformationalVersion>$(GitVersion_InformationalVersion)</InformationalVersion>
+        <LangVersion>13</LangVersion>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Avalonia" Version="11.3.3" />
+        <PackageReference Include="Avalonia.Desktop" Version="11.3.3" />
+        <PackageReference Include="Avalonia.Themes.Fluent" Version="11.3.3" />
+        <PackageReference Include="Avalonia.Fonts.Inter" Version="11.3.3" />
+        <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
+        <PackageReference Include="Avalonia.Diagnostics" Version="11.3.3">
+            <IncludeAssets Condition="'$(Configuration)' != 'Debug'">None</IncludeAssets>
+            <PrivateAssets Condition="'$(Configuration)' != 'Debug'">All</PrivateAssets>
+        </PackageReference>
+        <PackageReference Include="Avalonia.ReactiveUI" Version="11.3.3" />
+        <PackageReference Include="GitVersion.MsBuild" Version="6.4.0">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Microsoft.Extensions.Options" Version="9.0.8" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Preferences.Common\Preferences.Common.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Include="docs\README.md" Pack="true" PackagePath="\"/>
+    </ItemGroup>
+
+</Project>

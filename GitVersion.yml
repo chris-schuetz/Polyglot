@@ -1,0 +1,59 @@
+mode: ContinuousDelivery
+branches:
+  main:
+    regex: ^master$|^main$
+    mode: ContinuousDelivery
+    increment: Patch
+    track-merge-target: false
+    tracks-release-branches: false
+    is-release-branch: false
+  develop:
+    regex: ^dev(elop)?(ment)?$
+    mode: ContinuousDeployment
+    increment: Minor
+    track-merge-target: true
+    tracks-release-branches: true
+    is-release-branch: false
+  release:
+    regex: ^features?[\/-](?<BranchName>.+)
+    mode: ContinuousDelivery
+    increment: Patch
+    track-merge-target: false
+    tracks-release-branches: false
+    is-release-branch: true
+    source-branches: ['develop', 'main']
+  feature:
+    regex: ^features?[/-]
+    mode: ContinuousDelivery
+    increment: Inherit
+    track-merge-target: false
+    tracks-release-branches: false
+    is-release-branch: false
+    source-branches: ['develop']
+  hotfix:
+    regex: ^hotfix(es)?[/-]
+    mode: ContinuousDelivery
+    increment: Patch
+    track-merge-target: false
+    tracks-release-branches: false
+    is-release-branch: false
+    source-branches: ['main']
+  support:
+    regex: ^support[/-]
+    mode: ContinuousDelivery
+    increment: Patch
+    track-merge-target: false
+    tracks-release-branches: false
+    is-release-branch: false
+  bugfix:
+    regex: ^bugfix(es)?[/-]
+    mode: ContinuousDelivery
+    increment: Inherit
+    track-merge-target: false
+    tracks-release-branches: false
+    is-release-branch: false
+    source-branches: ['develop']
+
+ignore:
+  sha: []
+merge-message-formats: {}

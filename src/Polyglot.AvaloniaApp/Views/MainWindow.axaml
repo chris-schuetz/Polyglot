@@ -1,0 +1,51 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:Polyglot.AvaloniaApp.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:hotKeyControls="clr-namespace:Preferences.Avalonia.Controls;assembly=Preferences.Avalonia"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="Polyglot.AvaloniaApp.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="Polyglot.AvaloniaApp"
+        MinHeight="600" MinWidth="800">
+
+    <Design.DataContext>
+        <!-- This only sets the DataContext for the previewer in an IDE,
+             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+        <vm:MainWindowViewModel />
+    </Design.DataContext>
+
+
+    <Grid>
+        <!-- Main content -->
+        <Grid Name="MainContent">
+            <DockPanel>
+                <hotKeyControls:HotKeyMenu DockPanel.Dock="Top">
+                    <MenuItem Header="_File" IsVisible="True">
+                        <MenuItem Header="_Preferences..." InputGesture="{Binding OpenPreferencesGesture}"
+                                  Command="{Binding OpenPreferencesDialog}" />
+                                                          <MenuItem Header="_Hot Keys..." InputGesture="{Binding ShowHotKeysGesture}"
+                                  Command="{Binding OpenHotKeysDialog}" />
+                        <Separator />
+                        <MenuItem Header="_Exit" InputGesture="{Binding ExitApplicationGesture}"
+                                  Command="{Binding ExecuteExitApplication}" />
+                    </MenuItem>
+                    <MenuItem Header="" IsVisible="False">
+                        <!-- MenuItem Header="MyInvisCommand" InputGesture="Ctrl+I" Command="{Binding DoStuff}" /-->
+                    </MenuItem>
+                </hotKeyControls:HotKeyMenu>
+                <TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            </DockPanel>
+        </Grid>
+
+        <!-- Overlay container -->
+        <Grid Name="OverlayContainer"
+              Background="#80000000"
+              IsVisible="False"
+              ZIndex="1000">
+        </Grid>
+    </Grid>
+
+</Window>

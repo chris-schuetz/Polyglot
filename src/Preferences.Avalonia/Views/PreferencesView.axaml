@@ -1,0 +1,64 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="1000" d:DesignHeight="600"
+        x:Class="Preferences.Avalonia.Views.PreferencesView"
+        Title="PreferencesDialog"
+        TransparencyLevelHint="AcrylicBlur"
+        ExtendClientAreaToDecorationsHint="True"
+        Width="1000" Height="600"
+        WindowStartupLocation="CenterOwner">
+    <Panel>
+        <Grid Margin="20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200" MinWidth="200" />
+                <ColumnDefinition Width="4" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <ListBox Grid.Column="0" 
+                     ItemsSource="{Binding Sections}" 
+                     SelectedItem="{Binding SelectedSection, Mode=TwoWay}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Title}" />
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <GridSplitter Grid.Column="1" />
+            <Panel Grid.Column="2" Background="{DynamicResource ThemeBackgroundBrush}">
+                <StackPanel>
+                    <!-- Header row -->
+                    <Grid ColumnDefinitions="*,*" Margin="0,5,0,5">
+                        <TextBlock Grid.Column="0" Text="Title" FontWeight="Bold" Margin="10,0,0,0" />
+                        <TextBlock Grid.Column="1" Text="Value" FontWeight="Bold" Margin="10,0,0,0" />
+                    </Grid>
+                    <Border BorderBrush="#44FFFFFF" BorderThickness="1">
+                        <ScrollViewer>
+                            <ItemsControl ItemsSource="{Binding SelectedSection.Entries, FallbackValue=[]}" 
+                                          Background="Transparent">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid ColumnDefinitions="*,*" Margin="0,5,0,5">
+                                            <TextBlock Grid.Column="0" Text="{Binding Title}" VerticalAlignment="Center" Margin="10,0,0,0" />
+                                            <Panel Grid.Column="1" Margin="10,2,10,2">
+                                                <!-- ComboBox for when options are available -->
+                                                <ComboBox ItemsSource="{Binding Options}" 
+                                                          SelectedItem="{Binding Value, Mode=TwoWay}" 
+                                                          HorizontalAlignment="Stretch"
+                                                          IsVisible="{Binding HasOptions}" />
+                                                <!-- TextBox for when no options are available -->
+                                                <TextBox Text="{Binding Value, Mode=TwoWay}" 
+                                                         IsVisible="{Binding !HasOptions}" />
+                                            </Panel>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </ScrollViewer>
+                    </Border>
+                </StackPanel>
+            </Panel>
+        </Grid>
+    </Panel>
+</Window>

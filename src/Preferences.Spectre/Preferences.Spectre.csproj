@@ -1,0 +1,43 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+
+        <!-- NuGet package properties -->
+        <PackageId>Preferences.Spectre</PackageId>
+        <Authors>Christopher Schuetz</Authors>
+        <Description>Preferences management for Spectre applications</Description>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageProjectUrl>https://github.com/chris-schuetz/Preferences</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/chris-schuetz/Preferences.git</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        <PackageTags>spectre;preferences;settings</PackageTags>
+
+        <!-- GitVersion configuration -->
+        <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+        <UpdateAssemblyInfo>true</UpdateAssemblyInfo>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <PackageVersion>$(GitVersion_NuGetVersion)</PackageVersion>
+        <Version>$(GitVersion_FullSemVer)</Version>
+        <AssemblyVersion>$(GitVersion_AssemblySemVer)</AssemblyVersion>
+        <FileVersion>$(GitVersion_AssemblySemFileVer)</FileVersion>
+        <InformationalVersion>$(GitVersion_InformationalVersion)</InformationalVersion>
+        <LangVersion>13</LangVersion>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Preferences.Common\Preferences.Common.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Spectre.Console" Version="0.50.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Include="docs\README.md" Pack="true" PackagePath="\"/>
+    </ItemGroup>
+
+</Project>
