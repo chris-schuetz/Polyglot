@@ -50,7 +50,10 @@ public class SectionViewModel : ReactiveObject, IDisposable
         Entries = new ObservableCollection<EntryViewModel>(model.Entries.Select(e =>
             new EntryViewModel(e, localizationService)));
 
-        if (_localizationService != null) _localizationService.LocaleChanged += OnLocaleChanged;
+        if (_localizationService != null)
+        {
+            _localizationService.LocaleChanged += OnLocaleChanged;
+        }
     }
 
     public string Title => _localizationService != null
@@ -79,11 +82,18 @@ public class SectionViewModel : ReactiveObject, IDisposable
 
     private void Dispose(bool disposing)
     {
-        if (_isDisposed) return;
+        if (_isDisposed)
+        {
+            return;
+        }
 
         if (disposing)
+        {
             if (_localizationService != null)
+            {
                 _localizationService.LocaleChanged -= OnLocaleChanged;
+            }
+        }
 
         _isDisposed = true;
     }

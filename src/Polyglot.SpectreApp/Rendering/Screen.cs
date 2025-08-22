@@ -20,10 +20,10 @@
 
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Preferences.Common;
-using Preferences.Common.Messages;
 using Polyglot.Common;
 using Polyglot.SpectreApp.Pages;
+using Preferences.Common;
+using Preferences.Common.Messages;
 using SlimMessageBus;
 using Spectre.Console.Rendering;
 

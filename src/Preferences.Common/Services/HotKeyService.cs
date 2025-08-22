@@ -49,7 +49,10 @@ public class HotKeyService : IConsumer<KeyInputMessage>
                 section.Name.Equals("Preferences.HotKeys", StringComparison.Ordinal));
             var hotKey = hotKeys.Entries.FirstOrDefault(e =>
                 e.Value.Equals(CreateHotkeyString(message.KeyInfo), StringComparison.Ordinal));
-            if (hotKey == null) return;
+            if (hotKey == null)
+            {
+                return;
+            }
 
             await _bus.Publish(CreateHotKeyMessage(hotKey.Name), cancellationToken: cancellationToken);
         }
@@ -78,11 +81,20 @@ public class HotKeyService : IConsumer<KeyInputMessage>
     {
         var parts = new List<string>();
 
-        if (keyInfo.Modifiers.HasFlag(ConsoleModifiers.Control)) parts.Add("Ctrl");
+        if (keyInfo.Modifiers.HasFlag(ConsoleModifiers.Control))
+        {
+            parts.Add("Ctrl");
+        }
 
-        if (keyInfo.Modifiers.HasFlag(ConsoleModifiers.Alt)) parts.Add("Alt");
+        if (keyInfo.Modifiers.HasFlag(ConsoleModifiers.Alt))
+        {
+            parts.Add("Alt");
+        }
 
-        if (keyInfo.Modifiers.HasFlag(ConsoleModifiers.Shift)) parts.Add("Shift");
+        if (keyInfo.Modifiers.HasFlag(ConsoleModifiers.Shift))
+        {
+            parts.Add("Shift");
+        }
 
         parts.Add(keyInfo.Key.ToString());
 

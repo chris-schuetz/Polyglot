@@ -19,8 +19,8 @@
 // SOFTWARE.
 
 using Microsoft.Extensions.Logging;
-using Preferences.Common.Messages;
 using Polyglot.Common;
+using Preferences.Common.Messages;
 using Spectre.Console;
 using Spectre.Console.Rendering;
 
@@ -87,13 +87,19 @@ public class ScreenLayout
         ;
 
         var (_, row) = Console.GetCursorPosition();
-        for (var i = row; i < Console.WindowHeight - 5; i++) AnsiConsole.WriteLine();
+        for (var i = row; i < Console.WindowHeight - 5; i++)
+        {
+            AnsiConsole.WriteLine();
+        }
     }
 
     public void ClearMainContent()
     {
         Console.SetCursorPosition(0, 1);
-        for (var i = 0; i < Console.WindowHeight - 5; i++) AnsiConsole.WriteLine();
+        for (var i = 0; i < Console.WindowHeight - 5; i++)
+        {
+            AnsiConsole.WriteLine();
+        }
     }
 
     public void RenderStatusBar(string hint, string status, StatusMessageType statusType)
@@ -135,7 +141,10 @@ public class ScreenLayout
 
     private void AddVerticalSpace(int lines)
     {
-        for (var i = 0; i < lines; i++) AnsiConsole.WriteLine();
+        for (var i = 0; i < lines; i++)
+        {
+            AnsiConsole.WriteLine();
+        }
     }
 
     private Style GetPrimaryStyle()

@@ -16,8 +16,8 @@
                 <ColumnDefinition Width="4" />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <ListBox Grid.Column="0" 
-                     ItemsSource="{Binding Sections}" 
+            <ListBox Grid.Column="0"
+                     ItemsSource="{Binding Sections}"
                      SelectedItem="{Binding SelectedSection, Mode=TwoWay}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
@@ -35,20 +35,21 @@
                     </Grid>
                     <Border BorderBrush="#44FFFFFF" BorderThickness="1">
                         <ScrollViewer>
-                            <ItemsControl ItemsSource="{Binding SelectedSection.Entries, FallbackValue=[]}" 
+                            <ItemsControl ItemsSource="{Binding SelectedSection.Entries, FallbackValue=[]}"
                                           Background="Transparent">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
                                         <Grid ColumnDefinitions="*,*" Margin="0,5,0,5">
-                                            <TextBlock Grid.Column="0" Text="{Binding Title}" VerticalAlignment="Center" Margin="10,0,0,0" />
+                                            <TextBlock Grid.Column="0" Text="{Binding Title}"
+                                                       VerticalAlignment="Center" Margin="10,0,0,0" />
                                             <Panel Grid.Column="1" Margin="10,2,10,2">
                                                 <!-- ComboBox for when options are available -->
-                                                <ComboBox ItemsSource="{Binding Options}" 
-                                                          SelectedItem="{Binding Value, Mode=TwoWay}" 
+                                                <ComboBox ItemsSource="{Binding Options}"
+                                                          SelectedItem="{Binding Value, Mode=TwoWay}"
                                                           HorizontalAlignment="Stretch"
                                                           IsVisible="{Binding HasOptions}" />
                                                 <!-- TextBox for when no options are available -->
-                                                <TextBox Text="{Binding Value, Mode=TwoWay}" 
+                                                <TextBox Text="{Binding Value, Mode=TwoWay}"
                                                          IsVisible="{Binding !HasOptions}" />
                                             </Panel>
                                         </Grid>

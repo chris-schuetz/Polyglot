@@ -18,6 +18,11 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-namespace Preferences.Common.Messages;
+using System.Collections.ObjectModel;
 
-public record OpenPreferencesCommand : Message;
+namespace Polyglot.AvaloniaApp.Models;
+
+public class Workspace
+{
+    public ObservableCollection<Message> OutputMessages { get; } = new();
+}

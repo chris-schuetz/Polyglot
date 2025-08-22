@@ -3,6 +3,7 @@
 Common building blocks for the Preferences ecosystem, shared by UI packages (Avalonia, Spectre, etc.).
 
 Includes:
+
 - Core models: PreferencesOptions, PreferencesSection, PreferencesEntry
 - Localization contract: ILocalizationService
 - Messaging primitives for hotkeys and actions
@@ -18,7 +19,8 @@ Install-Package Preferences.Common
 
 ## Core concepts
 
-- PreferencesOptions: top-level container for all sections. Use the constant PreferencesOptions.Preferences as the configuration root name if you bind from IConfiguration.
+- PreferencesOptions: top-level container for all sections. Use the constant PreferencesOptions.Preferences as the
+  configuration root name if you bind from IConfiguration.
 - PreferencesSection: a named group with an Order and a list of Entries.
 - PreferencesEntry: a single setting with Name, Value, and optional Options for pick lists.
 
@@ -55,14 +57,16 @@ Return the key if no translation exists to keep the UI resilient.
 
 ## Messaging and Hotkeys
 
-The package defines simple message records and a HotKeyService that listens to KeyInputMessage and publishes higher-order commands:
+The package defines simple message records and a HotKeyService that listens to KeyInputMessage and publishes
+higher-order commands:
 
 - KeyInputMessage(ConsoleKeyInfo key)
 - OpenPreferencesCommand
 - ShowHotKeysCommand
 - ShutdownCommand
 
-HotKeyService maps key combinations (e.g., Ctrl+Q) to commands based on the Preferences.HotKeys section in PreferencesOptions.
+HotKeyService maps key combinations (e.g., Ctrl+Q) to commands based on the Preferences.HotKeys section in
+PreferencesOptions.
 
 ```csharp
 services.AddSingleton<HotKeyService>(); // also registered as IConsumer<KeyInputMessage>

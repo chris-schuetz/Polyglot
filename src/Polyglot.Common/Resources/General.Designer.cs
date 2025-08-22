@@ -28,7 +28,7 @@ namespace Preferences.Avalonia.Resources {
         internal static System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.Equals(null, resourceMan)) {
-                    System.Resources.ResourceManager temp = new System.Resources.ResourceManager("Preferences.Avalonia.SampleApp.Resources.General", typeof(General).Assembly);
+                    System.Resources.ResourceManager temp = new System.Resources.ResourceManager("Polyglot.Common.Resources.General", typeof(General).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -69,9 +69,15 @@ namespace Preferences.Avalonia.Resources {
             }
         }
         
-        internal static string Preferences_HotKeys_OpenHotKeys {
+        internal static string Preferences_HotKeys_ShowHotKeys {
             get {
-                return ResourceManager.GetString("Preferences.HotKeys.OpenHotKeys", resourceCulture);
+                return ResourceManager.GetString("Preferences.HotKeys.ShowHotKeys", resourceCulture);
+            }
+        }
+        
+        internal static string Preferences_HotKeys_Exit {
+            get {
+                return ResourceManager.GetString("Preferences.HotKeys.Exit", resourceCulture);
             }
         }
     }

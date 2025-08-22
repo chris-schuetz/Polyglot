@@ -21,7 +21,6 @@
 using System.Reactive;
 using System.Threading.Tasks;
 using Avalonia.Controls;
-using Avalonia.Interactivity;
 using Avalonia.ReactiveUI;
 using Polyglot.AvaloniaApp.ViewModels;
 using Preferences.Avalonia.ViewModels;
@@ -45,7 +44,7 @@ public partial class MainWindow : ReactiveWindow<MainWindowViewModel>
         this.WhenActivated(action =>
             action(ViewModel!.HideOverlay.RegisterHandler(DoHideOverlayAsync)));
     }
-    
+
     private Task DoExitApplicationAsync(IInteractionContext<Unit, Unit> interaction)
     {
         Close();

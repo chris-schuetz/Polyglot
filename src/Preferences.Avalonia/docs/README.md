@@ -81,11 +81,13 @@ Use the HotKeyMenu control to automatically wire MenuItem InputGesture to the pa
 </controls:HotKeyMenu>
 ```
 
-Any change to a MenuItem.InputGesture is detected and the corresponding KeyBinding on the Window is updated automatically.
+Any change to a MenuItem.InputGesture is detected and the corresponding KeyBinding on the Window is updated
+automatically.
 
 ## Localization
 
-Implement Preferences.Common.Services.ILocalizationService to localize section and entry names. The view models call GetLocalizedString(name) and listen to LocaleChanged to update the UI.
+Implement Preferences.Common.Services.ILocalizationService to localize section and entry names. The view models call
+GetLocalizedString(name) and listen to LocaleChanged to update the UI.
 
 ```csharp
 public class AppLocalizationService : ILocalizationService
@@ -97,4 +99,5 @@ public class AppLocalizationService : ILocalizationService
 
 ## Samples
 
-See the Polyglot.AvaloniaApp project in this repository for a runnable example, including DI setup, options binding, and showing the dialog via ReactiveUI interactions.
+See the Polyglot.AvaloniaApp project in this repository for a runnable example, including DI setup, options binding, and
+showing the dialog via ReactiveUI interactions.

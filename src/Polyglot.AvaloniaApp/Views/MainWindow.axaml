@@ -26,7 +26,7 @@
                     <MenuItem Header="_File" IsVisible="True">
                         <MenuItem Header="_Preferences..." InputGesture="{Binding OpenPreferencesGesture}"
                                   Command="{Binding OpenPreferencesDialog}" />
-                                                          <MenuItem Header="_Hot Keys..." InputGesture="{Binding ShowHotKeysGesture}"
+                        <MenuItem Header="_Hot Keys..." InputGesture="{Binding ShowHotKeysGesture}"
                                   Command="{Binding OpenHotKeysDialog}" />
                         <Separator />
                         <MenuItem Header="_Exit" InputGesture="{Binding ExitApplicationGesture}"
@@ -36,7 +36,18 @@
                         <!-- MenuItem Header="MyInvisCommand" InputGesture="Ctrl+I" Command="{Binding DoStuff}" /-->
                     </MenuItem>
                 </hotKeyControls:HotKeyMenu>
-                <TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                <DockPanel LastChildFill="False">
+                    <TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"
+                               DockPanel.Dock="Top" />
+                    <ListBox ItemsSource="{Binding OutputMessages}" DisplayMemberBinding="{Binding Text}"
+                             DockPanel.Dock="Top" HorizontalAlignment="Left" VerticalAlignment="Top">
+                        <ListBox.Styles>
+                            <Style Selector="ListBoxItem">
+                                <Setter Property="MaxHeight" Value="40" />
+                            </Style>
+                        </ListBox.Styles>
+                    </ListBox>
+                </DockPanel>
             </DockPanel>
         </Grid>
 
@@ -44,8 +55,7 @@
         <Grid Name="OverlayContainer"
               Background="#80000000"
               IsVisible="False"
-              ZIndex="1000">
-        </Grid>
+              ZIndex="1000" />
     </Grid>
 
 </Window>

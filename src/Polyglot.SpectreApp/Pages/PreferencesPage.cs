@@ -20,10 +20,10 @@
 
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Preferences.Common;
 using Polyglot.Common;
-using Preferences.Common.Services;
 using Polyglot.SpectreApp.Rendering;
+using Preferences.Common;
+using Preferences.Common.Services;
 using Spectre.Console;
 using Spectre.Console.Rendering;
 
@@ -56,8 +56,10 @@ public class PreferencesPage : IPage
         {
             rows.Add(screenLayout.GetSubHeader(_localizationService.GetLocalizedString(section.Name)));
             foreach (var entry in section.Entries)
+            {
                 rows.Add(screenLayout.GetContent(
                     $"{_localizationService.GetLocalizedString(entry.Name)}: {entry.Value}"));
+            }
         }
 
         return new Rows(rows);

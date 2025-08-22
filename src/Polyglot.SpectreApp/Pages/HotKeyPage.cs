@@ -20,9 +20,9 @@
 
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Polyglot.SpectreApp.Rendering;
 using Preferences.Common;
 using Preferences.Common.Services;
-using Polyglot.SpectreApp.Rendering;
 using Spectre.Console;
 using Spectre.Console.Rendering;
 
@@ -52,7 +52,9 @@ public class HotKeyPage : IPage
         var hotKeys = _options.CurrentValue.Sections.First(s => s.Name == "Preferences.HotKeys");
         rows.Add(screenLayout.GetSubHeader(_localizationService.GetLocalizedString(hotKeys.Name)));
         foreach (var entry in hotKeys.Entries)
+        {
             rows.Add(screenLayout.GetContent($"{_localizationService.GetLocalizedString(entry.Name)}: {entry.Value}"));
+        }
 
         return new Rows(rows);
     }

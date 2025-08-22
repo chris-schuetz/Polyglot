@@ -27,8 +27,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Polyglot.AvaloniaApp.ViewModels;
 using Polyglot.AvaloniaApp.Views;
-using Preferences.Common;
 using Polyglot.Common.Services;
+using Preferences.Common;
 using Preferences.Common.Services;
 using ZLogger;
 
@@ -60,10 +60,12 @@ public class App(IConfiguration configuration) : Application
         Logger.Sink = services.GetService<LoggerSink>();
 
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
+        {
             desktop.MainWindow = new MainWindow
             {
                 DataContext = services.GetRequiredService<MainWindowViewModel>()
             };
+        }
 
         base.OnFrameworkInitializationCompleted();
     }

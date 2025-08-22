@@ -20,9 +20,9 @@
 
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Preferences.Common.Messages;
 using Polyglot.Common;
 using Polyglot.SpectreApp.Rendering;
+using Preferences.Common.Messages;
 using SlimMessageBus;
 
 namespace Polyglot.SpectreApp;

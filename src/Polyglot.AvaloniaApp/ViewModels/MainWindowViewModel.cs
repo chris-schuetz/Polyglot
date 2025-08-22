@@ -18,6 +18,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reactive;
 using System.Reactive.Linq;
@@ -26,9 +27,10 @@ using Avalonia;
 using Avalonia.Input;
 using Avalonia.Styling;
 using Microsoft.Extensions.Options;
+using Polyglot.AvaloniaApp.Models;
+using Polyglot.Common;
 using Preferences.Avalonia.ViewModels;
 using Preferences.Common;
-using Polyglot.Common;
 using Preferences.Common.Services;
 using ReactiveUI;
 
@@ -36,12 +38,18 @@ namespace Polyglot.AvaloniaApp.ViewModels;
 
 public class MainWindowViewModel : ViewModelBase
 {
+    private readonly Workspace _workspaceModel = new();
     private string _greeting = "Welcome to Avalonia!";
     private PreferencesOptions _preferencesOptions;
 
     public MainWindowViewModel(IOptions<PreferencesOptions> hotKeyOptions, ILocalizationService localizationService)
     {
         _preferencesOptions = hotKeyOptions.Value;
+
+        // Initialize Workspace model and its ViewModel
+        _workspaceModel.OutputMessages.Add(new Message("Application started."));
+        Workspace = new WorkspaceViewModel(_workspaceModel);
+
         OpenPreferencesDialog = ReactiveCommand.CreateFromTask(async () =>
         {
             PreferencesOptions =
@@ -117,6 +125,10 @@ public class MainWindowViewModel : ViewModelBase
 
     public IInteraction<Unit, Unit> HideOverlay { get; } = new Interaction<Unit, Unit>();
 
+    public WorkspaceViewModel Workspace { get; }
+
+    public ReadOnlyObservableCollection<MessageViewModel> OutputMessages => Workspace.Messages;
+
     public ICommand CloseOverlay { get; }
 
     public IInteraction<Unit, Unit> ExitApplication { get; } = new Interaction<Unit, Unit>();
@@ -136,7 +148,10 @@ public class MainWindowViewModel : ViewModelBase
 
     private void ApplyTheme()
     {
-        if (Application.Current == null) return;
+        if (Application.Current == null)
+        {
+            return;
+        }
 
         Application.Current.RequestedThemeVariant = PreferencesOptions.Sections
                 .FirstOrDefault(s => s.Name == "Preferences.General")?.Entries

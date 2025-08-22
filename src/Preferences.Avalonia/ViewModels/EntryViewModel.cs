@@ -47,7 +47,10 @@ public sealed class EntryViewModel : ReactiveObject, IDisposable
         _model = model;
         _localizationService = localizationService;
 
-        if (_localizationService != null) _localizationService.LocaleChanged += OnLocaleChanged;
+        if (_localizationService != null)
+        {
+            _localizationService.LocaleChanged += OnLocaleChanged;
+        }
     }
 
     public string Title =>
@@ -83,11 +86,18 @@ public sealed class EntryViewModel : ReactiveObject, IDisposable
 
     private void Dispose(bool disposing)
     {
-        if (_isDisposed) return;
+        if (_isDisposed)
+        {
+            return;
+        }
 
         if (disposing)
+        {
             if (_localizationService != null)
+            {
                 _localizationService.LocaleChanged -= OnLocaleChanged;
+            }
+        }
 
         _isDisposed = true;
     }

@@ -23,12 +23,11 @@ using System.Windows.Input;
 using Avalonia.Interactivity;
 using Avalonia.ReactiveUI;
 using Preferences.Avalonia.ViewModels;
-using ReactiveUI;
 
 namespace Preferences.Avalonia.Views;
 
 /// <summary>
-/// A user interface component for displaying a section of preferences.
+///     A user interface component for displaying a section of preferences.
 /// </summary>
 public partial class SectionView : ReactiveUserControl<SectionViewModel>
 {

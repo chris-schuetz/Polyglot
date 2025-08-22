@@ -47,7 +47,10 @@ public class PreferencesViewModel : ReactiveObject
 
         // Convert model sections to view model sections
         Sections = new List<SectionViewModel>();
-        foreach (var section in Options.Sections) Sections.Add(new SectionViewModel(section, localizationService));
+        foreach (var section in Options.Sections)
+        {
+            Sections.Add(new SectionViewModel(section, localizationService));
+        }
 
         Sections = Sections.OrderBy(s => s.Order).ToList();
         SelectedSection = Sections.FirstOrDefault();

@@ -21,25 +21,23 @@
 namespace Preferences.Common;
 
 /// <summary>
-/// Represents a model for an individual preference entry in the application's configuration system.
+///     Represents a model for an individual preference entry in the application's configuration system.
 /// </summary>
 /// <remarks>
-/// This sealed class encapsulates a single configurable preference value, including its key, title,
-/// current value, and optional set of predefined choices.
-/// 
-/// Preferences entries are typically organized within <see cref="PreferencesSection"/> collections to form
-/// a complete preferences hierarchy. The entry's properties are exposed to the UI through the
-/// <see cref="EntryViewModel"/> wrapper class which provides additional UI-specific functionality
-/// and reactive binding support.
-/// 
-/// This class serves as part of the Model layer in the MVVM architecture pattern used throughout
-/// the preferences system.
+///     This sealed class encapsulates a single configurable preference value, including its key, title,
+///     current value, and optional set of predefined choices.
+///     Preferences entries are typically organized within <see cref="PreferencesSection" /> collections to form
+///     a complete preferences hierarchy. The entry's properties are exposed to the UI through the
+///     <see cref="EntryViewModel" /> wrapper class which provides additional UI-specific functionality
+///     and reactive binding support.
+///     This class serves as part of the Model layer in the MVVM architecture pattern used throughout
+///     the preferences system.
 /// </remarks>
 public sealed class PreferencesEntry
 {
     public required string Name { get; init; }
 
     public required string Value { get; set; }
-    
+
     public List<string>? Options { get; set; }
 }
