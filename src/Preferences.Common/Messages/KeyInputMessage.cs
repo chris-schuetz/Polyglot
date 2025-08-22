@@ -20,4 +20,4 @@
 
 namespace Preferences.Common.Messages;
 
-public sealed record KeyInputMessage(ConsoleKeyInfo KeyInfo) : Message;
+public sealed record KeyInputMessage(ConsoleKeyInfo KeyInfo) : MessageBase;

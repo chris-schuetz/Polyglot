@@ -65,7 +65,7 @@ public sealed class HotKeyService : IConsumer<KeyInputMessage>
         }
     }
 
-    private Message CreateHotKeyMessage(string hotKeyName)
+    private MessageBase CreateHotKeyMessage(string hotKeyName)
     {
         // TODO inject factory instead of hardcoding
         return hotKeyName switch

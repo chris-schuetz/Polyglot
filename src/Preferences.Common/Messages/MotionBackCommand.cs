@@ -20,4 +20,4 @@
 
 namespace Preferences.Common.Messages;
 
-public sealed record MotionBackCommand : Message;
+public sealed record MotionBackCommand : MessageBase;

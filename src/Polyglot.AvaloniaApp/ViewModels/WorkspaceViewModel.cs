@@ -39,82 +39,9 @@ public sealed class WorkspaceViewModel : ViewModelBase
         {
             _messages.Add(new MessageViewModel(m));
         }
-
-        // Keep VM collection in sync with model collection
-        Model.OutputMessages.CollectionChanged += OnModelMessagesChanged;
     }
 
     public ReadOnlyObservableCollection<MessageViewModel> Messages { get; }
 
     public Workspace Model { get; }
-
-    private void OnModelMessagesChanged(object? sender, NotifyCollectionChangedEventArgs e)
-    {
-        switch (e.Action)
-        {
-            case NotifyCollectionChangedAction.Add:
-                if (e.NewItems != null)
-                {
-                    foreach (Message m in e.NewItems)
-                    {
-                        _messages.Add(new MessageViewModel(m));
-                    }
-                }
-
-                break;
-            case NotifyCollectionChangedAction.Remove:
-                if (e.OldItems != null)
-                {
-                    foreach (Message m in e.OldItems)
-                    {
-                        var vm = FindByModel(m);
-                        if (vm != null)
-                        {
-                            _messages.Remove(vm);
-                        }
-                    }
-                }
-
-                break;
-            case NotifyCollectionChangedAction.Reset:
-                _messages.Clear();
-                break;
-            case NotifyCollectionChangedAction.Replace:
-                if (e.OldItems != null)
-                {
-                    foreach (Message m in e.OldItems)
-                    {
-                        var vm = FindByModel(m);
-                        if (vm != null)
-                        {
-                            _messages.Remove(vm);
-                        }
-                    }
-                }
-
-                if (e.NewItems != null)
-                {
-                    foreach (Message m in e.NewItems)
-                    {
-                        _messages.Add(new MessageViewModel(m));
-                    }
-                }
-
-                break;
-            case NotifyCollectionChangedAction.Move:
-                // For simplicity, reset order when moves occur
-                _messages.Clear();
-                foreach (var m in Model.OutputMessages)
-                {
-                    _messages.Add(new MessageViewModel(m));
-                }
-
-                break;
-        }
-    }
-
-    private MessageViewModel? FindByModel(Message model)
-    {
-        return _messages.FirstOrDefault(vm => ReferenceEquals(vm.Model, model));
-    }
 }

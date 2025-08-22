@@ -20,4 +20,4 @@
 
 namespace Preferences.Common.Messages;
 
-public sealed record ShutdownCommand : Message;
+public sealed record ShutdownCommand : MessageBase;

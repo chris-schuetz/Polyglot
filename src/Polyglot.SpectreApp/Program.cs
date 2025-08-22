@@ -35,6 +35,7 @@ using SlimMessageBus.Host.Memory;
 using SlimMessageBus.Host.Serialization.SystemTextJson;
 using Spectre.Console;
 using ZLogger;
+using Message = Polyglot.Common.Models.Message;
 
 namespace Polyglot.SpectreApp;
 
@@ -111,8 +112,7 @@ internal sealed class Program
         services.AddSingleton<ScreenLayout>();
         services.AddSingleton<Workspace>(sp =>
         {
-            var ws = new Workspace();
-            ws.OutputMessages.Add(new Polyglot.Common.Models.Message("Application started."));
+            var ws = new Workspace([new Message("Application started.")]);
             return ws;
         });
         services.AddSingleton<WorkspacePage>();

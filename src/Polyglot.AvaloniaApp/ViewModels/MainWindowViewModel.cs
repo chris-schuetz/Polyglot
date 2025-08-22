@@ -18,6 +18,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reactive;
@@ -38,8 +39,7 @@ namespace Polyglot.AvaloniaApp.ViewModels;
 
 public sealed class MainWindowViewModel : ViewModelBase
 {
-    private readonly Workspace _workspaceModel = new();
-    private string _greeting = "Welcome to Avalonia!";
+    private readonly Workspace _workspaceModel = new(new List<Message>{new("Application started.")});
     private PreferencesOptions _preferencesOptions;
 
     public MainWindowViewModel(IOptions<PreferencesOptions> hotKeyOptions, ILocalizationService localizationService)
@@ -47,7 +47,6 @@ public sealed class MainWindowViewModel : ViewModelBase
         _preferencesOptions = hotKeyOptions.Value;
 
         // Initialize Workspace model and its ViewModel
-        _workspaceModel.OutputMessages.Add(new Message("Application started."));
         Workspace = new WorkspaceViewModel(_workspaceModel);
 
         OpenPreferencesDialog = ReactiveCommand.CreateFromTask(async () =>
@@ -99,17 +98,6 @@ public sealed class MainWindowViewModel : ViewModelBase
 
     public IInteraction<SectionViewModel, Unit> ShowHotKeysDialog { get; } =
         new Interaction<SectionViewModel, Unit>();
-
-
-    public string Greeting
-    {
-        get => _greeting;
-        set
-        {
-            _greeting = value;
-            this.RaisePropertyChanged();
-        }
-    }
 
     public PreferencesOptions PreferencesOptions
     {

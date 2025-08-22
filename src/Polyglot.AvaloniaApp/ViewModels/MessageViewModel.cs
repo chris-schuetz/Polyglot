@@ -19,7 +19,6 @@
 // SOFTWARE.
 
 using Polyglot.Common.Models;
-using ReactiveUI;
 
 namespace Polyglot.AvaloniaApp.ViewModels;
 
@@ -27,16 +26,5 @@ public sealed class MessageViewModel(Message model) : ViewModelBase
 {
     public Message Model => model;
 
-    public string Text
-    {
-        get => model.Text;
-        set
-        {
-            if (model.Text != value)
-            {
-                model.Text = value;
-                this.RaisePropertyChanged();
-            }
-        }
-    }
+    public string Text => model.Text;
 }

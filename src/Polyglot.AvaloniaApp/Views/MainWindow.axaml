@@ -37,8 +37,6 @@
                     </MenuItem>
                 </hotKeyControls:HotKeyMenu>
                 <DockPanel LastChildFill="False">
-                    <TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"
-                               DockPanel.Dock="Top" />
                     <ListBox ItemsSource="{Binding OutputMessages}" DisplayMemberBinding="{Binding Text}"
                              DockPanel.Dock="Top" HorizontalAlignment="Left" VerticalAlignment="Top">
                         <ListBox.Styles>

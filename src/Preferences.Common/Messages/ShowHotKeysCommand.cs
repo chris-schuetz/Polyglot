@@ -20,4 +20,4 @@
 
 namespace Preferences.Common.Messages;
 
-public sealed record ShowHotKeysCommand : Message;
+public sealed record ShowHotKeysCommand : MessageBase;

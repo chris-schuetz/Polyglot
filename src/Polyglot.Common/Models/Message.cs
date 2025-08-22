@@ -20,7 +20,4 @@
 
 namespace Polyglot.Common.Models;
 
-public sealed record Message(string Text)
-{
-    public string Text { get; set; } = Text;
-}
+public sealed record Message(string Text);
