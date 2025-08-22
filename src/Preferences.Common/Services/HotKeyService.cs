@@ -25,7 +25,7 @@ using SlimMessageBus;
 
 namespace Preferences.Common.Services;
 
-public class HotKeyService : IConsumer<KeyInputMessage>
+public sealed class HotKeyService : IConsumer<KeyInputMessage>
 {
     private readonly IMessageBus _bus;
     private readonly ILogger<HotKeyService> _logger;

@@ -20,4 +20,4 @@
 
 namespace Preferences.Common.Messages;
 
-public record OpenPreferencesCommand : Message;
+public sealed record OpenPreferencesCommand : Message;

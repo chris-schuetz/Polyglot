@@ -36,7 +36,7 @@ using ReactiveUI;
 
 namespace Polyglot.AvaloniaApp.ViewModels;
 
-public class MainWindowViewModel : ViewModelBase
+public sealed class MainWindowViewModel : ViewModelBase
 {
     private readonly Workspace _workspaceModel = new();
     private string _greeting = "Welcome to Avalonia!";

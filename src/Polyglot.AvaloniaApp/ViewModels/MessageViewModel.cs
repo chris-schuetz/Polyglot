@@ -23,7 +23,7 @@ using ReactiveUI;
 
 namespace Polyglot.AvaloniaApp.ViewModels;
 
-public class MessageViewModel(Message model) : ViewModelBase
+public sealed class MessageViewModel(Message model) : ViewModelBase
 {
     public Message Model => model;
 

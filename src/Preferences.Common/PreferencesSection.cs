@@ -34,7 +34,7 @@ namespace Preferences.Common;
 ///     This class serves as part of the Model layer in the MVVM architecture pattern used throughout
 ///     the preferences system.
 /// </remarks>
-public class PreferencesSection
+public record PreferencesSection
 {
     public required string Name { get; init; }
 

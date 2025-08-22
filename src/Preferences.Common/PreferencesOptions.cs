@@ -33,7 +33,7 @@ namespace Preferences.Common;
 ///     with each section containing its own entries. This design allows for flexible organization
 ///     of application settings while maintaining a consistent UI representation.
 /// </remarks>
-public class PreferencesOptions
+public sealed record PreferencesOptions
 {
     public const string Preferences = "Preferences";
 

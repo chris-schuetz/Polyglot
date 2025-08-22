@@ -29,8 +29,8 @@ using Spectre.Console.Rendering;
 
 namespace Polyglot.SpectreApp.Rendering;
 
-public class Screen : IScreen, IConsumer<StatusMessage>, IConsumer<ShowHotKeysCommand>,
-    IConsumer<OpenPreferencesCommand>, IConsumer<MotionBackCommand>
+public sealed class Screen : IScreen, IConsumer<StatusMessage>, IConsumer<ShowHotKeysCommand>,
+    IConsumer<OpenPreferencesCommand>, IConsumer<MotionBackCommand>, IDisposable
 {
     private readonly HotKeyPage _hotKeyPage;
     private readonly ILogger<Screen> _logger;
@@ -152,5 +152,10 @@ public class Screen : IScreen, IConsumer<StatusMessage>, IConsumer<ShowHotKeysCo
     {
         // TODO shorten status if necessary
         _screenLayout.RenderStatusBar(StatusBarHintText, StatusBarStatusText, StatusBarStatusMessageType);
+    }
+
+    public void Dispose()
+    {
+        _optionsSubscription?.Dispose();
     }
 }

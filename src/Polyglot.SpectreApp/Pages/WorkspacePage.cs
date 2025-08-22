@@ -25,7 +25,7 @@ using Spectre.Console.Rendering;
 
 namespace Polyglot.SpectreApp.Pages;
 
-public class WorkspacePage(Workspace workspace) : IPage
+public sealed class WorkspacePage(Workspace workspace) : IPage
 {
     public IRenderable Draw(ScreenLayout screenLayout)
     {

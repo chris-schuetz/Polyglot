@@ -26,7 +26,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Polyglot.AvaloniaApp;
 
-internal class LoggerSink : ILogSink
+internal sealed class LoggerSink : ILogSink
 {
     private readonly ILogger<LoggerSink> _defaultLogger;
     private readonly ILoggerFactory _loggerFactory;

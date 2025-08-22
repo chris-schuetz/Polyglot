@@ -24,7 +24,7 @@ using SlimMessageBus;
 
 namespace Preferences.Common.Services;
 
-public class ShutdownService(IHostApplicationLifetime lifetime) : IConsumer<ShutdownCommand>
+public sealed class ShutdownService(IHostApplicationLifetime lifetime) : IConsumer<ShutdownCommand>
 {
     public Task OnHandle(ShutdownCommand message, CancellationToken cancellationToken)
     {

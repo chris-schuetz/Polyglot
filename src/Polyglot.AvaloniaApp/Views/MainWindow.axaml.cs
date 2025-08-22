@@ -30,7 +30,7 @@ using ReactiveUI;
 
 namespace Polyglot.AvaloniaApp.Views;
 
-public partial class MainWindow : ReactiveWindow<MainWindowViewModel>
+public sealed partial class MainWindow : ReactiveWindow<MainWindowViewModel>
 {
     public MainWindow()
     {

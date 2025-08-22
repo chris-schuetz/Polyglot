@@ -22,7 +22,7 @@ using System.Collections.ObjectModel;
 
 namespace Polyglot.Common.Models;
 
-public class Workspace
+public sealed class Workspace
 {
     public ObservableCollection<Message> OutputMessages { get; } = new();
 }

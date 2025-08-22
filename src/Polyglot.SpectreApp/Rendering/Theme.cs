@@ -20,7 +20,7 @@
 
 namespace Polyglot.SpectreApp.Rendering;
 
-public class Theme
+public sealed class Theme
 {
     public ConsoleColor PrimaryColor { get; set; } = ConsoleColor.Blue;
     public ConsoleColor SecondaryColor { get; set; } = ConsoleColor.Cyan;

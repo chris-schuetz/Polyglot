@@ -28,7 +28,7 @@ using Spectre.Console.Rendering;
 
 namespace Polyglot.SpectreApp.Pages;
 
-public class HotKeyPage : IPage
+public sealed class HotKeyPage : IPage
 {
     private readonly ILocalizationService _localizationService;
     private readonly ILogger<HotKeyPage> _logger;

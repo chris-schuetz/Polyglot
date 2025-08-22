@@ -37,7 +37,7 @@ namespace Preferences.Avalonia.ViewModels;
 ///     The view model automatically handles localization updates by subscribing to locale
 ///     change events and refreshing the Title property when the locale changes.
 /// </remarks>
-public class SectionViewModel : ReactiveObject, IDisposable
+public sealed class SectionViewModel : ReactiveObject, IDisposable
 {
     private readonly ILocalizationService? _localizationService;
     private readonly PreferencesSection _model;

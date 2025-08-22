@@ -29,7 +29,7 @@ namespace Preferences.Avalonia.Views;
 /// <summary>
 ///     A user interface component for displaying a section of preferences.
 /// </summary>
-public partial class SectionView : ReactiveUserControl<SectionViewModel>
+public sealed partial class SectionView : ReactiveUserControl<SectionViewModel>
 {
     private readonly ICommand _hideOverlay;
 

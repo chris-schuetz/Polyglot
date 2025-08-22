@@ -26,7 +26,7 @@ using Spectre.Console.Rendering;
 
 namespace Polyglot.SpectreApp.Rendering;
 
-public class ScreenLayout
+public sealed class ScreenLayout
 {
     private readonly ILogger<ScreenLayout> _logger;
 

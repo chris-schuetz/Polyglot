@@ -24,7 +24,7 @@ using Preferences.Common.Services;
 
 namespace Polyglot.Common.Services;
 
-public class AppLocalizationService : ILocalizationService
+public sealed class AppLocalizationService : ILocalizationService
 {
     private readonly ResourceManager _resourceManager =
         new("Polyglot.Common.Resources.General",

@@ -25,7 +25,7 @@ using Polyglot.AvaloniaApp.ViewModels;
 
 namespace Polyglot.AvaloniaApp;
 
-public class ViewLocator : IDataTemplate
+public sealed class ViewLocator : IDataTemplate
 {
     public Control? Build(object? param)
     {

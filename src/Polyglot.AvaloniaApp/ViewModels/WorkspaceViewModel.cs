@@ -25,7 +25,7 @@ using Polyglot.Common.Models;
 
 namespace Polyglot.AvaloniaApp.ViewModels;
 
-public class WorkspaceViewModel : ViewModelBase
+public sealed class WorkspaceViewModel : ViewModelBase
 {
     private readonly ObservableCollection<MessageViewModel> _messages = new();
 

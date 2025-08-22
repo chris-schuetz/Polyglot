@@ -37,7 +37,7 @@ namespace Preferences.Avalonia.Controls;
 ///     them as KeyBindings on the parent window, and maintains these bindings when input gestures change.
 ///     Based on the approach described at: https://github.com/AvaloniaUI/Avalonia/issues/2441#issuecomment-2742347861
 /// </remarks>
-public class HotKeyMenu : Menu
+public sealed class HotKeyMenu : Menu
 {
     private readonly List<MenuItem> _items = [];
 

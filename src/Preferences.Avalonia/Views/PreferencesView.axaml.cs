@@ -26,7 +26,7 @@ namespace Preferences.Avalonia.Views;
 /// <summary>
 ///     Represents the main window view for displaying and managing application preferences.
 /// </summary>
-public partial class PreferencesView : Window
+public sealed partial class PreferencesView : Window
 {
     public PreferencesView()
     {

@@ -20,4 +20,4 @@
 
 namespace Preferences.Common.Messages;
 
-public record StatusMessage(string Text, StatusMessageType Type) : Message;
+public sealed record StatusMessage(string Text, StatusMessageType Type) : Message;

@@ -20,4 +20,4 @@
 
 namespace Preferences.Common.Messages;
 
-public record Message;
+public abstract record Message;

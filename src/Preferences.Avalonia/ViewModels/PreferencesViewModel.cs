@@ -37,7 +37,7 @@ namespace Preferences.Avalonia.ViewModels;
 ///     It tracks the currently selected section to facilitate navigation between different preference
 ///     categories in the UI.
 /// </remarks>
-public class PreferencesViewModel : ReactiveObject
+public sealed class PreferencesViewModel : ReactiveObject
 {
     private SectionViewModel? _selectedSection;
 

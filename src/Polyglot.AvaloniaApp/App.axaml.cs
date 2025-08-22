@@ -34,7 +34,7 @@ using ZLogger;
 
 namespace Polyglot.AvaloniaApp;
 
-public class App(IConfiguration configuration) : Application
+public sealed class App(IConfiguration configuration) : Application
 {
     public override void Initialize()
     {

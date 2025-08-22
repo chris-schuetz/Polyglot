@@ -27,7 +27,7 @@ using SlimMessageBus;
 
 namespace Polyglot.SpectreApp;
 
-public class InteractiveApplication : IHostedService
+public sealed class InteractiveApplication : IHostedService
 {
     private readonly IMessageBus _bus;
     private readonly ILogger<InteractiveApplication> _logger;

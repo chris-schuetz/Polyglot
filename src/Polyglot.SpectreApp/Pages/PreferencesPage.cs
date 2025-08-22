@@ -29,7 +29,7 @@ using Spectre.Console.Rendering;
 
 namespace Polyglot.SpectreApp.Pages;
 
-public class PreferencesPage : IPage
+public sealed class PreferencesPage : IPage
 {
     private readonly ILocalizationService _localizationService;
     private readonly ILogger<PreferencesPage> _logger;
