@@ -18,6 +18,7 @@
     </Design.DataContext>
 
 
+
     <Grid>
         <!-- Main content -->
         <Grid Name="MainContent">
@@ -33,19 +34,64 @@
                                   Command="{Binding ExecuteExitApplication}" />
                     </MenuItem>
                     <MenuItem Header="" IsVisible="False">
-                        <!-- MenuItem Header="MyInvisCommand" InputGesture="Ctrl+I" Command="{Binding DoStuff}" /-->
+                        <MenuItem Header="Motion Left" InputGesture="{Binding MotionLeftGesture}"
+                                  Command="{Binding MotionLeftCommand}" />
+                        <MenuItem Header="Motion Right" InputGesture="{Binding MotionRightGesture}"
+                                  Command="{Binding MotionRightCommand}" />
+                        <MenuItem Header="Motion Up" InputGesture="{Binding MotionUpGesture}"
+                                  Command="{Binding MotionUpCommand}" />
+                        <MenuItem Header="Motion Down" InputGesture="{Binding MotionDownGesture}"
+                                  Command="{Binding MotionDownCommand}" />
+                        <MenuItem Header="Motion Select" InputGesture="{Binding MotionSelectGesture}"
+                                  Command="{Binding MotionSelectCommand}" />
                     </MenuItem>
                 </hotKeyControls:HotKeyMenu>
-                <DockPanel LastChildFill="False">
-                    <ListBox ItemsSource="{Binding OutputMessages}" DisplayMemberBinding="{Binding Text}"
-                             DockPanel.Dock="Top" HorizontalAlignment="Left" VerticalAlignment="Top">
-                        <ListBox.Styles>
-                            <Style Selector="ListBoxItem">
-                                <Setter Property="MaxHeight" Value="40" />
-                            </Style>
-                        </ListBox.Styles>
-                    </ListBox>
-                </DockPanel>
+                <Grid ColumnDefinitions="2*,3*,5*" Margin="8">
+                    <!-- Column 1: Devices -->
+                    <StackPanel Grid.Column="0" Spacing="4">
+                        <TextBlock Text="Devices" FontWeight="Bold" Margin="0,0,0,4" />
+                        <ListBox ItemsSource="{Binding Workspace.Devices}"
+                                 SelectedItem="{Binding Workspace.SelectedDevice, Mode=TwoWay}"
+                                 DisplayMemberBinding="{Binding Display}" />
+                    </StackPanel>
+
+                    <!-- Column 2: Templates and Runs of selected device -->
+                    <StackPanel Grid.Column="1" Spacing="8" Margin="8,0">
+                        <StackPanel Spacing="4">
+                            <TextBlock Text="Templates" FontWeight="Bold" />
+                            <ListBox ItemsSource="{Binding Workspace.Templates}"
+                                     SelectedItem="{Binding Workspace.SelectedTemplate, Mode=TwoWay}"
+                                     DisplayMemberBinding="{Binding Text}" />
+                        </StackPanel>
+                        <StackPanel Spacing="4">
+                            <TextBlock Text="Runs" FontWeight="Bold" />
+                            <ListBox ItemsSource="{Binding Workspace.Runs}"
+                                     SelectedItem="{Binding Workspace.SelectedRun, Mode=TwoWay}"
+                                     DisplayMemberBinding="{Binding Display}" />
+                        </StackPanel>
+                    </StackPanel>
+
+                    <!-- Column 3: Detail view -->
+                    <ContentControl Grid.Column="2" Content="{Binding Workspace.SelectedDetail}">
+                        <ContentControl.DataTemplates>
+                            <!-- Empty detail templates for now -->
+                            <DataTemplate DataType="vm:MessageViewModel">
+                                <Border BorderBrush="Gray" BorderThickness="1" Padding="8">
+                                    <StackPanel>
+                                        <!-- Intentionally left blank for Template details -->
+                                    </StackPanel>
+                                </Border>
+                            </DataTemplate>
+                            <DataTemplate DataType="vm:RunViewModel">
+                                <Border BorderBrush="Gray" BorderThickness="1" Padding="8">
+                                    <StackPanel>
+                                        <!-- Intentionally left blank for Run details -->
+                                    </StackPanel>
+                                </Border>
+                            </DataTemplate>
+                        </ContentControl.DataTemplates>
+                    </ContentControl>
+                </Grid>
             </DockPanel>
         </Grid>
 

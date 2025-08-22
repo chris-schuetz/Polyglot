@@ -74,6 +74,11 @@ public sealed class HotKeyService : IConsumer<KeyInputMessage>
             "Preferences.HotKeys.OpenPreferences" => new OpenPreferencesCommand(),
             "Preferences.HotKeys.ShowHotKeys" => new ShowHotKeysCommand(),
             "Preferences.HotKeys.MotionBack" => new MotionBackCommand(),
+            "Preferences.HotKeys.MotionLeft" => new MotionLeftCommand(),
+            "Preferences.HotKeys.MotionRight" => new MotionRightCommand(),
+            "Preferences.HotKeys.MotionUp" => new MotionUpCommand(),
+            "Preferences.HotKeys.MotionDown" => new MotionDownCommand(),
+            "Preferences.HotKeys.MotionSelect" => new MotionSelectCommand(),
             _ => throw new ArgumentException("Unknown hot key name: " + hotKeyName + "", nameof(hotKeyName))
         };
     }

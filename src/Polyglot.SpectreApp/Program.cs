@@ -22,9 +22,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Polyglot.Common.Models;
 using Polyglot.Common.Services;
 using Polyglot.SpectreApp.Pages;
-using Polyglot.Common.Models;
 using Polyglot.SpectreApp.Rendering;
 using Preferences.Common;
 using Preferences.Common.Messages;
@@ -35,7 +35,6 @@ using SlimMessageBus.Host.Memory;
 using SlimMessageBus.Host.Serialization.SystemTextJson;
 using Spectre.Console;
 using ZLogger;
-using Message = Polyglot.Common.Models.Message;
 
 namespace Polyglot.SpectreApp;
 
@@ -81,6 +80,16 @@ internal sealed class Program
             mbb.Consume<OpenPreferencesCommand>(x => x.Topic(nameof(OpenPreferencesCommand)));
             mbb.Produce<MotionBackCommand>(x => x.DefaultTopic(nameof(MotionBackCommand)));
             mbb.Consume<MotionBackCommand>(x => x.Topic(nameof(MotionBackCommand)));
+            mbb.Produce<MotionLeftCommand>(x => x.DefaultTopic(nameof(MotionLeftCommand)));
+            mbb.Consume<MotionLeftCommand>(x => x.Topic(nameof(MotionLeftCommand)));
+            mbb.Produce<MotionRightCommand>(x => x.DefaultTopic(nameof(MotionRightCommand)));
+            mbb.Consume<MotionRightCommand>(x => x.Topic(nameof(MotionRightCommand)));
+            mbb.Produce<MotionUpCommand>(x => x.DefaultTopic(nameof(MotionUpCommand)));
+            mbb.Consume<MotionUpCommand>(x => x.Topic(nameof(MotionUpCommand)));
+            mbb.Produce<MotionDownCommand>(x => x.DefaultTopic(nameof(MotionDownCommand)));
+            mbb.Consume<MotionDownCommand>(x => x.Topic(nameof(MotionDownCommand)));
+            mbb.Produce<MotionSelectCommand>(x => x.DefaultTopic(nameof(MotionSelectCommand)));
+            mbb.Consume<MotionSelectCommand>(x => x.Topic(nameof(MotionSelectCommand)));
             mbb.Produce<StatusMessage>(x => x.DefaultTopic(nameof(StatusMessage)));
             mbb.Consume<StatusMessage>(x => x.Topic(nameof(StatusMessage)));
             mbb.WithProviderMemory();
@@ -110,11 +119,7 @@ internal sealed class Program
         services.AddSingleton<ILocalizationService, AppLocalizationService>();
 
         services.AddSingleton<ScreenLayout>();
-        services.AddSingleton<Workspace>(sp =>
-        {
-            var ws = new Workspace([new Message("Application started.")]);
-            return ws;
-        });
+        services.AddSingleton<Workspace>(sp => { return WorkspaceHelpers.CreateFakeWorkspace(); });
         services.AddSingleton<WorkspacePage>();
         services.AddSingleton<Screen>();
         services.AddSingleton<IScreen>(x => x.GetRequiredService<Screen>());
@@ -122,6 +127,11 @@ internal sealed class Program
         services.AddSingleton<IConsumer<ShowHotKeysCommand>>(x => x.GetRequiredService<Screen>());
         services.AddSingleton<IConsumer<OpenPreferencesCommand>>(x => x.GetRequiredService<Screen>());
         services.AddSingleton<IConsumer<MotionBackCommand>>(x => x.GetRequiredService<Screen>());
+        services.AddSingleton<IConsumer<MotionLeftCommand>>(x => x.GetRequiredService<Screen>());
+        services.AddSingleton<IConsumer<MotionRightCommand>>(x => x.GetRequiredService<Screen>());
+        services.AddSingleton<IConsumer<MotionUpCommand>>(x => x.GetRequiredService<Screen>());
+        services.AddSingleton<IConsumer<MotionDownCommand>>(x => x.GetRequiredService<Screen>());
+        services.AddSingleton<IConsumer<MotionSelectCommand>>(x => x.GetRequiredService<Screen>());
         services.AddSingleton<PreferencesPage>();
         services.AddSingleton<HotKeyPage>();
         services.AddSingleton<HotKeyService>();

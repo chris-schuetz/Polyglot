@@ -30,17 +30,19 @@ using Spectre.Console.Rendering;
 namespace Polyglot.SpectreApp.Rendering;
 
 public sealed class Screen : IScreen, IConsumer<StatusMessage>, IConsumer<ShowHotKeysCommand>,
-    IConsumer<OpenPreferencesCommand>, IConsumer<MotionBackCommand>, IDisposable
+    IConsumer<OpenPreferencesCommand>, IConsumer<MotionBackCommand>, IConsumer<MotionLeftCommand>,
+    IConsumer<MotionRightCommand>, IConsumer<MotionUpCommand>, IConsumer<MotionDownCommand>,
+    IConsumer<MotionSelectCommand>, IDisposable
 {
     private readonly HotKeyPage _hotKeyPage;
     private readonly ILogger<Screen> _logger;
     private readonly IOptionsMonitor<PreferencesOptions> _options;
     private readonly IDisposable? _optionsSubscription;
-    private readonly PreferencesPage _preferencesPage;
-    private readonly WorkspacePage _workspacePage;
-    private readonly ScreenLayout _screenLayout;
-    private IRenderable? _currentPageContent;
     private readonly List<IPage> _pageStack = new();
+    private readonly PreferencesPage _preferencesPage;
+    private readonly ScreenLayout _screenLayout;
+    private readonly WorkspacePage _workspacePage;
+    private IRenderable? _currentPageContent;
 
     public Screen(
         ILogger<Screen> logger,
@@ -67,6 +69,62 @@ public sealed class Screen : IScreen, IConsumer<StatusMessage>, IConsumer<ShowHo
 
     public IPage? CurrentPage { get; set; }
 
+    public Task OnHandle(MotionBackCommand message, CancellationToken cancellationToken)
+    {
+        GoBack();
+        return Task.CompletedTask;
+    }
+
+    public Task OnHandle(MotionDownCommand message, CancellationToken cancellationToken)
+    {
+        if (ReferenceEquals(CurrentPage, _workspacePage))
+        {
+            _workspacePage.MoveDown();
+        }
+
+        return Task.CompletedTask;
+    }
+
+    public Task OnHandle(MotionLeftCommand message, CancellationToken cancellationToken)
+    {
+        if (ReferenceEquals(CurrentPage, _workspacePage))
+        {
+            _workspacePage.MoveLeft();
+        }
+
+        return Task.CompletedTask;
+    }
+
+    public Task OnHandle(MotionRightCommand message, CancellationToken cancellationToken)
+    {
+        if (ReferenceEquals(CurrentPage, _workspacePage))
+        {
+            _workspacePage.MoveRight();
+        }
+
+        return Task.CompletedTask;
+    }
+
+    public Task OnHandle(MotionSelectCommand message, CancellationToken cancellationToken)
+    {
+        if (ReferenceEquals(CurrentPage, _workspacePage))
+        {
+            _workspacePage.Select();
+        }
+
+        return Task.CompletedTask;
+    }
+
+    public Task OnHandle(MotionUpCommand message, CancellationToken cancellationToken)
+    {
+        if (ReferenceEquals(CurrentPage, _workspacePage))
+        {
+            _workspacePage.MoveUp();
+        }
+
+        return Task.CompletedTask;
+    }
+
     public Task OnHandle(OpenPreferencesCommand message, CancellationToken cancellationToken)
     {
         ShowPage(_preferencesPage);
@@ -79,17 +137,16 @@ public sealed class Screen : IScreen, IConsumer<StatusMessage>, IConsumer<ShowHo
         return Task.CompletedTask;
     }
 
-    public Task OnHandle(MotionBackCommand message, CancellationToken cancellationToken)
-    {
-        GoBack();
-        return Task.CompletedTask;
-    }
-
     public Task OnHandle(StatusMessage message, CancellationToken cancellationToken)
     {
         StatusBarStatusText = message.Text;
         StatusBarStatusMessageType = message.Type;
         return Task.CompletedTask;
+    }
+
+    public void Dispose()
+    {
+        _optionsSubscription?.Dispose();
     }
 
     public string StatusBarStatusText { get; set; } = string.Empty;
@@ -164,6 +221,7 @@ public sealed class Screen : IScreen, IConsumer<StatusMessage>, IConsumer<ShowHo
         {
             _pageStack.RemoveAt(index);
         }
+
         _pageStack.Add(page);
         CurrentPage = _pageStack[^1];
     }
@@ -174,11 +232,7 @@ public sealed class Screen : IScreen, IConsumer<StatusMessage>, IConsumer<ShowHo
         {
             _pageStack.RemoveAt(_pageStack.Count - 1);
         }
-        CurrentPage = _pageStack[^1];
-    }
 
-    public void Dispose()
-    {
-        _optionsSubscription?.Dispose();
+        CurrentPage = _pageStack[^1];
     }
 }

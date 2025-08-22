@@ -18,6 +18,6 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-namespace Polyglot.Common.Models;
+namespace Preferences.Common.Messages;
 
-public sealed record Workspace(IReadOnlyCollection<Device> Devices);
+public sealed record MotionUpCommand : MessageBase;

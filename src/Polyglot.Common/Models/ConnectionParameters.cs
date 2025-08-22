@@ -20,4 +20,4 @@
 
 namespace Polyglot.Common.Models;
 
-public sealed record Workspace(IReadOnlyCollection<Device> Devices);
+public abstract record ConnectionParameters;

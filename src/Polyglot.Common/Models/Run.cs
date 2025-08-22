@@ -20,4 +20,7 @@
 
 namespace Polyglot.Common.Models;
 
-public sealed record Workspace(IReadOnlyCollection<Device> Devices);
+public sealed record Run(
+    ConnectionParameters ConnectionParameters,
+    IReadOnlyCollection<Message> OutputMessages,
+    IReadOnlyCollection<IReadOnlyCollection<Message>> ReceivedMessages);

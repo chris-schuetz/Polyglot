@@ -18,6 +18,23 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-namespace Polyglot.Common.Models;
+using Polyglot.Common.Models;
 
-public sealed record Workspace(IReadOnlyCollection<Device> Devices);
+namespace Polyglot.AvaloniaApp.ViewModels;
+
+public sealed class RunViewModel(Run model) : ViewModelBase
+{
+    public Run Model { get; } = model;
+
+    public string Display
+    {
+        get
+        {
+            return Model.ConnectionParameters switch
+            {
+                TcpIpConnectionParameters tcp => $"Run {tcp.Host}:{tcp.Port}",
+                _ => "Run"
+            };
+        }
+    }
+}

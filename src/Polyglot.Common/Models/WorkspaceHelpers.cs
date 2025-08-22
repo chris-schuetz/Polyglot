@@ -20,4 +20,19 @@
 
 namespace Polyglot.Common.Models;
 
-public sealed record Workspace(IReadOnlyCollection<Device> Devices);
+public static class WorkspaceHelpers
+{
+    public static Workspace CreateFakeWorkspace()
+    {
+        var connectionParameters = new TcpIpConnectionParameters("localhost", 5000);
+        var outgoingMessages = new List<Message> { new("Application started.") };
+        return new Workspace([
+            new Device(connectionParameters,
+                outgoingMessages,
+                new List<Run>
+                {
+                    new(connectionParameters, outgoingMessages, new List<List<Message>>())
+                })
+        ]);
+    }
+}
