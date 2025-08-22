@@ -24,6 +24,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Polyglot.Common.Services;
 using Polyglot.SpectreApp.Pages;
+using Polyglot.Common.Models;
 using Polyglot.SpectreApp.Rendering;
 using Preferences.Common;
 using Preferences.Common.Messages;
@@ -77,6 +78,8 @@ internal sealed class Program
             mbb.Consume<ShowHotKeysCommand>(x => x.Topic(nameof(ShowHotKeysCommand)));
             mbb.Produce<OpenPreferencesCommand>(x => x.DefaultTopic(nameof(OpenPreferencesCommand)));
             mbb.Consume<OpenPreferencesCommand>(x => x.Topic(nameof(OpenPreferencesCommand)));
+            mbb.Produce<MotionBackCommand>(x => x.DefaultTopic(nameof(MotionBackCommand)));
+            mbb.Consume<MotionBackCommand>(x => x.Topic(nameof(MotionBackCommand)));
             mbb.Produce<StatusMessage>(x => x.DefaultTopic(nameof(StatusMessage)));
             mbb.Consume<StatusMessage>(x => x.Topic(nameof(StatusMessage)));
             mbb.WithProviderMemory();
@@ -106,11 +109,19 @@ internal sealed class Program
         services.AddSingleton<ILocalizationService, AppLocalizationService>();
 
         services.AddSingleton<ScreenLayout>();
+        services.AddSingleton<Workspace>(sp =>
+        {
+            var ws = new Workspace();
+            ws.OutputMessages.Add(new Polyglot.Common.Models.Message("Application started."));
+            return ws;
+        });
+        services.AddSingleton<WorkspacePage>();
         services.AddSingleton<Screen>();
         services.AddSingleton<IScreen>(x => x.GetRequiredService<Screen>());
         services.AddSingleton<IConsumer<StatusMessage>>(x => x.GetRequiredService<Screen>());
         services.AddSingleton<IConsumer<ShowHotKeysCommand>>(x => x.GetRequiredService<Screen>());
         services.AddSingleton<IConsumer<OpenPreferencesCommand>>(x => x.GetRequiredService<Screen>());
+        services.AddSingleton<IConsumer<MotionBackCommand>>(x => x.GetRequiredService<Screen>());
         services.AddSingleton<PreferencesPage>();
         services.AddSingleton<HotKeyPage>();
         services.AddSingleton<HotKeyService>();

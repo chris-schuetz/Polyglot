@@ -18,11 +18,6 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using System.Collections.ObjectModel;
+namespace Preferences.Common.Messages;
 
-namespace Polyglot.AvaloniaApp.Models;
-
-public class Workspace
-{
-    public ObservableCollection<Message> OutputMessages { get; } = new();
-}
+public record MotionBackCommand : Message;

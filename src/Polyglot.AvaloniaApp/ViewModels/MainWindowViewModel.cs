@@ -27,7 +27,7 @@ using Avalonia;
 using Avalonia.Input;
 using Avalonia.Styling;
 using Microsoft.Extensions.Options;
-using Polyglot.AvaloniaApp.Models;
+using Polyglot.Common.Models;
 using Polyglot.Common;
 using Preferences.Avalonia.ViewModels;
 using Preferences.Common;

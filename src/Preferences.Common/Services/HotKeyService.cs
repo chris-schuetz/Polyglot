@@ -73,6 +73,7 @@ public class HotKeyService : IConsumer<KeyInputMessage>
             "Preferences.HotKeys.Exit" => new ShutdownCommand(),
             "Preferences.HotKeys.OpenPreferences" => new OpenPreferencesCommand(),
             "Preferences.HotKeys.ShowHotKeys" => new ShowHotKeysCommand(),
+            "Preferences.HotKeys.MotionBack" => new MotionBackCommand(),
             _ => throw new ArgumentException("Unknown hot key name: " + hotKeyName + "", nameof(hotKeyName))
         };
     }

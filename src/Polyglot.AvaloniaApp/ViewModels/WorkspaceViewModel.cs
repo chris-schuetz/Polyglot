@@ -21,7 +21,7 @@
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
-using Polyglot.AvaloniaApp.Models;
+using Polyglot.Common.Models;
 
 namespace Polyglot.AvaloniaApp.ViewModels;
 

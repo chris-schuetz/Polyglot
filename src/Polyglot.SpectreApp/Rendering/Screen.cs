@@ -30,13 +30,14 @@ using Spectre.Console.Rendering;
 namespace Polyglot.SpectreApp.Rendering;
 
 public class Screen : IScreen, IConsumer<StatusMessage>, IConsumer<ShowHotKeysCommand>,
-    IConsumer<OpenPreferencesCommand>
+    IConsumer<OpenPreferencesCommand>, IConsumer<MotionBackCommand>
 {
     private readonly HotKeyPage _hotKeyPage;
     private readonly ILogger<Screen> _logger;
     private readonly IOptionsMonitor<PreferencesOptions> _options;
     private readonly IDisposable? _optionsSubscription;
     private readonly PreferencesPage _preferencesPage;
+    private readonly WorkspacePage _workspacePage;
     private readonly ScreenLayout _screenLayout;
     private IRenderable? _currentPageContent;
 
@@ -45,13 +46,17 @@ public class Screen : IScreen, IConsumer<StatusMessage>, IConsumer<ShowHotKeysCo
         IOptionsMonitor<PreferencesOptions> options,
         ScreenLayout screenLayout,
         HotKeyPage hotKeyPage,
-        PreferencesPage preferencesPage)
+        PreferencesPage preferencesPage,
+        WorkspacePage workspacePage)
     {
         _logger = logger;
         _options = options;
         _screenLayout = screenLayout;
         _hotKeyPage = hotKeyPage;
         _preferencesPage = preferencesPage;
+        _workspacePage = workspacePage;
+
+        CurrentPage = workspacePage;
 
         _optionsSubscription = _options.OnChange(UpdateTheme);
         UpdateTheme(_options.CurrentValue, null);
@@ -68,6 +73,12 @@ public class Screen : IScreen, IConsumer<StatusMessage>, IConsumer<ShowHotKeysCo
     public Task OnHandle(ShowHotKeysCommand message, CancellationToken cancellationToken)
     {
         CurrentPage = _hotKeyPage;
+        return Task.CompletedTask;
+    }
+
+    public Task OnHandle(MotionBackCommand message, CancellationToken cancellationToken)
+    {
+        CurrentPage = _workspacePage;
         return Task.CompletedTask;
     }
 
