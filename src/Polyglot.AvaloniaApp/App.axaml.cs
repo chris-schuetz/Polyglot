@@ -36,6 +36,11 @@ namespace Polyglot.AvaloniaApp;
 
 public sealed class App(IConfiguration configuration) : Application
 {
+    // Parameterless constructor required by Avalonia XAML loader
+    public App() : this(new ConfigurationBuilder().Build())
+    {
+    }
+
     public override void Initialize()
     {
         AvaloniaXamlLoader.Load(this);

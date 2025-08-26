@@ -43,6 +43,17 @@ internal sealed class Program
     }
 
     // Avalonia configuration, don't remove; also used by visual designer.
+    public static AppBuilder BuildAvaloniaApp()
+    {
+        // Parameterless overload required for Avalonia Designer
+        return AppBuilder.Configure<App>()
+            .UsePlatformDetect()
+            .WithInterFont()
+            .LogToTrace()
+            .UseReactiveUI();
+    }
+
+    // Overload used by the runtime to pass configuration
     public static AppBuilder BuildAvaloniaApp(IConfiguration configuration)
     {
         return AppBuilder.Configure(() => new App(configuration))

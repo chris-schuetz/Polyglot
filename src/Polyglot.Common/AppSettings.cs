@@ -34,6 +34,11 @@ public static class AppSettings
         // Parse the JSON into a JsonNode object
         var jsonNode = JsonNode.Parse(json);
 
+        if (jsonNode == null)
+        {
+            throw new ArgumentException("Unable to open / read appSettingsPath");
+        }
+
         // Create options for serialization
         var serializerOptions = new JsonSerializerOptions
         {

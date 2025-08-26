@@ -33,6 +33,11 @@ public sealed partial class SectionView : ReactiveUserControl<SectionViewModel>
 {
     private readonly ICommand _hideOverlay;
 
+    // Parameterless constructor required by Avalonia XAML loader
+    public SectionView() : this(new NoOpCommand())
+    {
+    }
+
     public SectionView(ICommand hideOverlay)
     {
         _hideOverlay = hideOverlay;
@@ -47,5 +52,16 @@ public sealed partial class SectionView : ReactiveUserControl<SectionViewModel>
     private void OkButton_Click(object? sender, RoutedEventArgs e)
     {
         _hideOverlay.Execute(Unit.Default);
+    }
+
+    private sealed class NoOpCommand : ICommand
+    {
+        public bool CanExecute(object? parameter) => true;
+        public void Execute(object? parameter) { }
+        public event EventHandler? CanExecuteChanged
+        {
+            add { }
+            remove { }
+        }
     }
 }

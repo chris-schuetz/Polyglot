@@ -28,6 +28,7 @@ using Avalonia.Styling;
 using Microsoft.Extensions.Options;
 using Polyglot.Common;
 using Polyglot.Common.Models;
+using Polyglot.Common.Services;
 using Preferences.Avalonia.ViewModels;
 using Preferences.Common;
 using Preferences.Common.Services;
@@ -39,6 +40,54 @@ public sealed class MainWindowViewModel : ViewModelBase
 {
     private readonly Workspace _workspaceModel = WorkspaceHelpers.CreateFakeWorkspace();
     private PreferencesOptions _preferencesOptions;
+
+    // Parameterless constructor for Avalonia Designer
+    // Creates lightweight default options and a basic localization service
+    public MainWindowViewModel() : this(
+        Options.Create(CreateDesignTimePreferences()),
+        new AppLocalizationService())
+    {
+    }
+
+    private static PreferencesOptions CreateDesignTimePreferences()
+    {
+        return new PreferencesOptions
+        {
+            Sections =
+            [
+                new PreferencesSection
+                {
+                    Name = "Preferences.General",
+                    Order = 0,
+                    Entries =
+                    [
+                        new PreferencesEntry
+                        {
+                            Name = "Preferences.General.Theme",
+                            Value = "Dark",
+                            Options = ["Default", "Light", "Dark"]
+                        }
+                    ]
+                },
+                new PreferencesSection
+                {
+                    Name = "Preferences.HotKeys",
+                    Order = 1,
+                    Entries =
+                    [
+                        new PreferencesEntry { Name = "Preferences.HotKeys.OpenPreferences", Value = "Ctrl+P" },
+                        new PreferencesEntry { Name = "Preferences.HotKeys.ShowHotKeys", Value = "Ctrl+H" },
+                        new PreferencesEntry { Name = "Preferences.HotKeys.Exit", Value = "Ctrl+Q" },
+                        new PreferencesEntry { Name = "Preferences.HotKeys.MotionLeft", Value = "Left" },
+                        new PreferencesEntry { Name = "Preferences.HotKeys.MotionRight", Value = "Right" },
+                        new PreferencesEntry { Name = "Preferences.HotKeys.MotionUp", Value = "Up" },
+                        new PreferencesEntry { Name = "Preferences.HotKeys.MotionDown", Value = "Down" },
+                        new PreferencesEntry { Name = "Preferences.HotKeys.MotionSelect", Value = "Enter" }
+                    ]
+                }
+            ]
+        };
+    }
 
     public MainWindowViewModel(IOptions<PreferencesOptions> hotKeyOptions, ILocalizationService localizationService)
     {
