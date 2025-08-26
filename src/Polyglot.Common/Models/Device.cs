@@ -21,6 +21,7 @@
 namespace Polyglot.Common.Models;
 
 public sealed record Device(
+    string Name,
     ConnectionParameters ConnectionParameters,
     IReadOnlyCollection<Message> OutputMessages,
     IReadOnlyCollection<Run> Runs);

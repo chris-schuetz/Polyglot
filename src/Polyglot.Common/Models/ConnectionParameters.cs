@@ -20,4 +20,4 @@
 
 namespace Polyglot.Common.Models;
 
-public abstract record ConnectionParameters;
+public abstract record ConnectionParameters(string Name = nameof(ConnectionParameters));

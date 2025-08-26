@@ -47,15 +47,16 @@ public sealed class WorkspaceViewModel : ViewModelBase
         Devices = new ReadOnlyObservableCollection<DeviceViewModel>(
             new ObservableCollection<DeviceViewModel>(Model.Devices.Select(d => new DeviceViewModel(d))));
 
-        // Select first device by default if available
-        SelectedDevice = Devices.FirstOrDefault();
-        _selectedDeviceIndex = SelectedDevice != null ? Devices.IndexOf(SelectedDevice) : 0;
+        // Select first device by default if available; otherwise use placeholder
+        SelectedDevice = Devices.FirstOrDefault() ?? NoDeviceViewModel.Instance;
+        _selectedDeviceIndex = SelectedDevice != null && Devices.Contains(SelectedDevice)
+            ? Devices.IndexOf(SelectedDevice)
+            : 0;
     }
 
     public Workspace Model { get; }
 
-    public ReadOnlyObservableCollection<DeviceViewModel> Devices { get; } =
-        new(new ObservableCollection<DeviceViewModel>());
+    public ReadOnlyObservableCollection<DeviceViewModel> Devices { get; }
 
     public DeviceViewModel? SelectedDevice
     {
@@ -67,8 +68,8 @@ public sealed class WorkspaceViewModel : ViewModelBase
                 return;
             }
 
-            _selectedDevice = value;
-            _selectedDeviceIndex = _selectedDevice != null ? Devices.IndexOf(_selectedDevice) : 0;
+            _selectedDevice = value ?? NoDeviceViewModel.Instance;
+            _selectedDeviceIndex = Devices.Contains(_selectedDevice) ? Devices.IndexOf(_selectedDevice) : 0;
             this.RaisePropertyChanged();
             // Update dependent collections
             this.RaisePropertyChanged(nameof(Templates));
@@ -168,7 +169,6 @@ public sealed class WorkspaceViewModel : ViewModelBase
                 break;
             case 1:
                 var templateCount = Templates.Count;
-                var runCount = Runs.Count;
 
                 if (_middleFocusOnTemplates)
                 {

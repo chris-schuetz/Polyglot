@@ -26,15 +26,7 @@ public sealed class DeviceViewModel(Device model) : ViewModelBase
 {
     public Device Model { get; } = model;
 
-    public string Display
-    {
-        get
-        {
-            return Model.ConnectionParameters switch
-            {
-                TcpIpConnectionParameters tcp => $"TCP {tcp.Host}:{tcp.Port}",
-                _ => Model.ConnectionParameters.GetType().Name
-            };
-        }
-    }
+    public string DeviceName => Model.Name;
+
+    public string ConfigurationName => Model.ConnectionParameters.Name;
 }

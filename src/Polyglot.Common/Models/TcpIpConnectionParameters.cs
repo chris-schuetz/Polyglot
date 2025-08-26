@@ -20,4 +20,4 @@
 
 namespace Polyglot.Common.Models;
 
-public record TcpIpConnectionParameters(string Host, int Port) : ConnectionParameters;
+public record TcpIpConnectionParameters(string Host, int Port) : ConnectionParameters("TCP/IP Parameters");

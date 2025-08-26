@@ -20,9 +20,7 @@
 
 namespace Polyglot.Common.Models;
 
-public sealed record Run(
-    ConnectionParameters ConnectionParameters,
-    DateTime StartTime,
-    DateTime EndTime,
-    IReadOnlyCollection<Message> OutputMessages,
-    IReadOnlyCollection<IReadOnlyCollection<Message>> ReceivedMessages);
+/// <summary>
+/// Placeholder parameters used when no real connection is applicable.
+/// </summary>
+public sealed record NoConnectionParameters() : ConnectionParameters("(No device selected)");

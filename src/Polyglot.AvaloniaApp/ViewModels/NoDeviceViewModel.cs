@@ -18,11 +18,23 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-namespace Polyglot.Common.Models;
+using System;
+using System.Collections.Generic;
+using Polyglot.Common.Models;
 
-public sealed record Run(
-    ConnectionParameters ConnectionParameters,
-    DateTime StartTime,
-    DateTime EndTime,
-    IReadOnlyCollection<Message> OutputMessages,
-    IReadOnlyCollection<IReadOnlyCollection<Message>> ReceivedMessages);
+namespace Polyglot.AvaloniaApp.ViewModels;
+
+/// <summary>
+/// A placeholder view model used when no device is selected in the UI.
+/// Not part of the Devices list; only used as a SelectedDevice fallback.
+/// </summary>
+public static class NoDeviceViewModel
+{
+    private static readonly Device PlaceholderDevice = new(
+        "(No device selected)",
+        new NoConnectionParameters(),
+        Array.Empty<Message>(),
+        Array.Empty<Run>());
+
+    public static DeviceViewModel Instance { get; } = new DeviceViewModel(PlaceholderDevice);
+}

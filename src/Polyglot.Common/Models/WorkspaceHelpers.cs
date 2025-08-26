@@ -27,11 +27,13 @@ public static class WorkspaceHelpers
         var connectionParameters = new TcpIpConnectionParameters("localhost", 5000);
         var outgoingMessages = new List<Message> { new("Application started.") };
         return new Workspace([
-            new Device(connectionParameters,
+            new Device(
+                "Device 1",
+                connectionParameters,
                 outgoingMessages,
                 new List<Run>
                 {
-                    new(connectionParameters, outgoingMessages, new List<List<Message>>())
+                    new(connectionParameters, DateTime.MinValue, DateTime.MaxValue, outgoingMessages, new List<List<Message>>())
                 })
         ]);
     }
