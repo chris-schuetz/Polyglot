@@ -36,7 +36,8 @@
             </ListBox.ItemTemplate>
         </ListBox>
 
-        <Button Grid.Row="2"
+        <Button Name="OkButton"
+                Grid.Row="2"
                 Content="OK"
                 HorizontalAlignment="Right"
                 Width="80"

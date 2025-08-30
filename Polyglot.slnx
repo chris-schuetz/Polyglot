@@ -1,10 +1,13 @@
 ﻿<Solution>
-    <Folder Name="/Preferences/">
-        <Project Path="src\Preferences.Avalonia\Preferences.Avalonia.csproj" Type="Classic C#"/>
-        <Project Path="src\Preferences.Common\Preferences.Common.csproj" Type="Classic C#"/>
-        <Project Path="src\Preferences.Spectre\Preferences.Spectre.csproj" Type="Classic C#"/>
-    </Folder>
-    <Project Path="src\Polyglot.AvaloniaApp\Polyglot.AvaloniaApp.csproj" Type="Classic C#"/>
-    <Project Path="src\Polyglot.Common\Polyglot.Common.csproj" Type="Classic C#"/>
-    <Project Path="src\Polyglot.SpectreApp\Polyglot.SpectreApp.csproj" Type="Classic C#"/>
+  <Folder Name="/Preferences/">
+    <Project Path="src\Preferences.Avalonia\Preferences.Avalonia.csproj" Type="Classic C#" />
+    <Project Path="src\Preferences.Common\Preferences.Common.csproj" Type="Classic C#" />
+    <Project Path="src\Preferences.Spectre\Preferences.Spectre.csproj" Type="Classic C#" />
+  </Folder>
+  <Folder Name="/Specs/">
+    <Project Path="tests\Polyglot.AvaloniaSpecs\Polyglot.AvaloniaSpecs.csproj" Type="Classic C#" />
+  </Folder>
+  <Project Path="src\Polyglot.AvaloniaApp\Polyglot.AvaloniaApp.csproj" Type="Classic C#" />
+  <Project Path="src\Polyglot.Common\Polyglot.Common.csproj" Type="Classic C#" />
+  <Project Path="src\Polyglot.SpectreApp\Polyglot.SpectreApp.csproj" Type="Classic C#" />
 </Solution>

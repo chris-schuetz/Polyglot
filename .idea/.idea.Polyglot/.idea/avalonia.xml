@@ -5,6 +5,8 @@
       <map>
         <entry key="src/Polyglot.AvaloniaApp/App.axaml" value="src/Polyglot.AvaloniaApp/Polyglot.AvaloniaApp.csproj" />
         <entry key="src/Polyglot.AvaloniaApp/Views/MainWindow.axaml" value="src/Polyglot.AvaloniaApp/Polyglot.AvaloniaApp.csproj" />
+        <entry key="src/Preferences.Avalonia/Views/PreferencesView.axaml" value="src/Polyglot.AvaloniaApp/Polyglot.AvaloniaApp.csproj" />
+        <entry key="src/Preferences.Avalonia/Views/SectionView.axaml" value="src/Polyglot.AvaloniaApp/Polyglot.AvaloniaApp.csproj" />
       </map>
     </option>
   </component>

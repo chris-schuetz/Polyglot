@@ -23,6 +23,7 @@ using System.Reactive;
 using System.Reactive.Linq;
 using System.Windows.Input;
 using Avalonia;
+using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Styling;
 using Microsoft.Extensions.Options;
@@ -76,13 +77,14 @@ public sealed class MainWindowViewModel : ViewModelBase
                     Entries =
                     [
                         new PreferencesEntry { Name = "Preferences.HotKeys.OpenPreferences", Value = "Ctrl+P" },
-                        new PreferencesEntry { Name = "Preferences.HotKeys.ShowHotKeys", Value = "Ctrl+H" },
+                        new PreferencesEntry { Name = "Preferences.HotKeys.ShowHotKeys", Value = "F1" },
                         new PreferencesEntry { Name = "Preferences.HotKeys.Exit", Value = "Ctrl+Q" },
-                        new PreferencesEntry { Name = "Preferences.HotKeys.MotionLeft", Value = "Left" },
-                        new PreferencesEntry { Name = "Preferences.HotKeys.MotionRight", Value = "Right" },
-                        new PreferencesEntry { Name = "Preferences.HotKeys.MotionUp", Value = "Up" },
-                        new PreferencesEntry { Name = "Preferences.HotKeys.MotionDown", Value = "Down" },
-                        new PreferencesEntry { Name = "Preferences.HotKeys.MotionSelect", Value = "Enter" }
+                        new PreferencesEntry { Name = "Preferences.HotKeys.MotionBack", Value = "Escape" },
+                        new PreferencesEntry { Name = "Preferences.HotKeys.MotionLeft", Value = "LeftArrow" },
+                        new PreferencesEntry { Name = "Preferences.HotKeys.MotionRight", Value = "RightArrow" },
+                        new PreferencesEntry { Name = "Preferences.HotKeys.MotionUp", Value = "UpArrow" },
+                        new PreferencesEntry { Name = "Preferences.HotKeys.MotionDown", Value = "DownArrow" },
+                        new PreferencesEntry { Name = "Preferences.HotKeys.MotionSelect", Value = "Spacebar" }
                     ]
                 }
             ]
@@ -113,6 +115,7 @@ public sealed class MainWindowViewModel : ViewModelBase
         ExecuteExitApplication = ReactiveCommand.CreateFromTask(async () => await ExitApplication.Handle(Unit.Default));
 
         // Motion commands
+        MotionBackCommand = ReactiveCommand.Create(MoveBack);
         MotionLeftCommand = ReactiveCommand.Create(() => Workspace.MoveLeft());
         MotionRightCommand = ReactiveCommand.Create(() => Workspace.MoveRight());
         MotionUpCommand = ReactiveCommand.Create(() => Workspace.MoveUp());
@@ -125,46 +128,27 @@ public sealed class MainWindowViewModel : ViewModelBase
     public ICommand OpenPreferencesDialog { get; }
 
     // Motion commands
+    public ICommand MotionBackCommand { get; }
     public ICommand MotionLeftCommand { get; }
     public ICommand MotionRightCommand { get; }
     public ICommand MotionUpCommand { get; }
     public ICommand MotionDownCommand { get; }
     public ICommand MotionSelectCommand { get; }
 
-    // Motion gestures from preferences (normalized for Avalonia)
     public KeyGesture? MotionLeftGesture => GetGesture("Preferences.HotKeys.MotionLeft");
+    public KeyGesture? MotionBackGesture => GetGesture("Preferences.HotKeys.MotionBack");
     public KeyGesture? MotionRightGesture => GetGesture("Preferences.HotKeys.MotionRight");
     public KeyGesture? MotionUpGesture => GetGesture("Preferences.HotKeys.MotionUp");
     public KeyGesture? MotionDownGesture => GetGesture("Preferences.HotKeys.MotionDown");
     public KeyGesture? MotionSelectGesture => GetGesture("Preferences.HotKeys.MotionSelect");
-
-    public KeyGesture? OpenPreferencesGesture
-    {
-        get
-        {
-            return PreferencesOptions.Sections.FirstOrDefault(s => s.Name == "Preferences.HotKeys")?.Entries
-                .FirstOrDefault(hk => hk.Name == "Preferences.HotKeys.OpenPreferences") is { } open
-                ? KeyGesture.Parse(open.Value)
-                : null;
-        }
-    }
+    public KeyGesture? OpenPreferencesGesture => GetGesture("Preferences.HotKeys.OpenPreferences");
+    public KeyGesture? ExitApplicationGesture => GetGesture("Preferences.HotKeys.Exit");
+    public KeyGesture? ShowHotKeysGesture => GetGesture("Preferences.HotKeys.ShowHotKeys");
 
     public IInteraction<PreferencesViewModel, PreferencesOptions> ShowPreferencesDialog { get; } =
         new Interaction<PreferencesViewModel, PreferencesOptions>();
 
-
     public ICommand OpenHotKeysDialog { get; }
-
-    public KeyGesture? ShowHotKeysGesture
-    {
-        get
-        {
-            return PreferencesOptions.Sections.FirstOrDefault(s => s.Name == "Preferences.HotKeys")?.Entries
-                .FirstOrDefault(hk => hk.Name == "Preferences.HotKeys.ShowHotKeys") is { } open
-                ? KeyGesture.Parse(open.Value)
-                : null;
-        }
-    }
 
     public IInteraction<SectionViewModel, Unit> ShowHotKeysDialog { get; } =
         new Interaction<SectionViewModel, Unit>();
@@ -179,6 +163,7 @@ public sealed class MainWindowViewModel : ViewModelBase
             this.RaisePropertyChanged(nameof(OpenPreferencesGesture));
             this.RaisePropertyChanged(nameof(ShowHotKeysGesture));
             this.RaisePropertyChanged(nameof(ExitApplicationGesture));
+            this.RaisePropertyChanged(nameof(MotionBackGesture));
             this.RaisePropertyChanged(nameof(MotionLeftGesture));
             this.RaisePropertyChanged(nameof(MotionRightGesture));
             this.RaisePropertyChanged(nameof(MotionUpGesture));
@@ -192,22 +177,21 @@ public sealed class MainWindowViewModel : ViewModelBase
 
     public WorkspaceViewModel Workspace { get; }
 
-
     public ICommand CloseOverlay { get; }
 
     public IInteraction<Unit, Unit> ExitApplication { get; } = new Interaction<Unit, Unit>();
 
     public ICommand ExecuteExitApplication { get; }
+    public ReactiveObject? CurrentOverlay { get; set; }
 
-    public KeyGesture? ExitApplicationGesture
+    public void MoveBack()
     {
-        get
+        if (CurrentOverlay is null)
         {
-            return PreferencesOptions.Sections.FirstOrDefault(s => s.Name == "Preferences.HotKeys")?.Entries
-                .FirstOrDefault(hk => hk.Name == "Preferences.HotKeys.Exit") is { } open
-                ? KeyGesture.Parse(open.Value)
-                : null;
+            return;
         }
+
+        CloseOverlay.Execute(Unit.Default);
     }
 
     private KeyGesture? GetGesture(string name)

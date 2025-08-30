@@ -64,6 +64,7 @@ public sealed partial class MainWindow : ReactiveWindow<MainWindowViewModel>
             overlayContainer.IsVisible = true;
         }
 
+        ViewModel!.CurrentOverlay = interaction.Input;
         interaction.SetOutput(Unit.Default);
         return Task.CompletedTask;
     }
@@ -78,6 +79,7 @@ public sealed partial class MainWindow : ReactiveWindow<MainWindowViewModel>
             overlayContainer.IsVisible = false;
         }
 
+        ViewModel!.CurrentOverlay = null;
         interaction.SetOutput(Unit.Default);
         return Task.CompletedTask;
     }

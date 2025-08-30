@@ -29,6 +29,10 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <InternalsVisibleTo Include="Polyglot.AvaloniaSpecs" />
+    </ItemGroup>
+
+    <ItemGroup>
         <PackageReference Include="Avalonia" Version="11.3.3"/>
         <PackageReference Include="Avalonia.Desktop" Version="11.3.3"/>
         <PackageReference Include="Avalonia.Themes.Fluent" Version="11.3.3"/>
@@ -53,5 +57,4 @@
     <ItemGroup>
         <None Include="docs\README.md" Pack="true" PackagePath="\"/>
     </ItemGroup>
-
 </Project>

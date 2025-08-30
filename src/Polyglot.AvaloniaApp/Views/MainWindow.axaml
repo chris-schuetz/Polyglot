@@ -34,6 +34,8 @@
                                   Command="{Binding ExecuteExitApplication}" />
                     </MenuItem>
                     <MenuItem Header="" IsVisible="False">
+                        <MenuItem Header="Motion Back" InputGesture="{Binding MotionBackGesture}"
+                                  Command="{Binding MotionBackCommand}" />
                         <MenuItem Header="Motion Left" InputGesture="{Binding MotionLeftGesture}"
                                   Command="{Binding MotionLeftCommand}" />
                         <MenuItem Header="Motion Right" InputGesture="{Binding MotionRightGesture}"
