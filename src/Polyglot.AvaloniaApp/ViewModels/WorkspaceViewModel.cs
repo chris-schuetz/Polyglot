@@ -29,7 +29,7 @@ namespace Polyglot.AvaloniaApp.ViewModels;
 
 public sealed class WorkspaceViewModel : ViewModelBase
 {
-    private int _focusedColumn; // 0=Devices, 1=Middle (Templates/Runs), 2=Detail
+    private int _focusedColumn;
     private bool _middleFocusOnTemplates = true;
     private int _selectedDeviceIndex;
     private int _selectedTemplateIndex;
@@ -43,11 +43,9 @@ public sealed class WorkspaceViewModel : ViewModelBase
     {
         Model = model;
 
-        // Initialize devices from model
         Devices = new ReadOnlyObservableCollection<DeviceViewModel>(
             new ObservableCollection<DeviceViewModel>(Model.Devices.Select(d => new DeviceViewModel(d))));
 
-        // Select first device by default if available; otherwise use placeholder
         SelectedDevice = Devices.FirstOrDefault() ?? NoDeviceViewModel.Instance;
         _selectedDeviceIndex = SelectedDevice != null && Devices.Contains(SelectedDevice)
             ? Devices.IndexOf(SelectedDevice)
@@ -71,10 +69,8 @@ public sealed class WorkspaceViewModel : ViewModelBase
             _selectedDevice = value ?? NoDeviceViewModel.Instance;
             _selectedDeviceIndex = Devices.Contains(_selectedDevice) ? Devices.IndexOf(_selectedDevice) : 0;
             this.RaisePropertyChanged();
-            // Update dependent collections
             this.RaisePropertyChanged(nameof(Templates));
             this.RaisePropertyChanged(nameof(Runs));
-            // Clear selections when device changes
             SelectedTemplate = null;
             SelectedRun = null;
             _selectedTemplateIndex = 0;
@@ -104,7 +100,6 @@ public sealed class WorkspaceViewModel : ViewModelBase
             _selectedTemplate = value;
             if (value != null)
             {
-                // Deselect run if a template is selected
                 _selectedRun = null;
                 this.RaisePropertyChanged(nameof(SelectedRun));
             }
@@ -127,7 +122,6 @@ public sealed class WorkspaceViewModel : ViewModelBase
             _selectedRun = value;
             if (value != null)
             {
-                // Deselect template if a run is selected
                 _selectedTemplate = null;
                 this.RaisePropertyChanged(nameof(SelectedTemplate));
             }

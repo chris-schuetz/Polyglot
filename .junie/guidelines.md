@@ -12,3 +12,8 @@ Replace this text with any project-level instructions for Junie, e.g.:
     - build: for project or build pipeline changes
     - Add notes for any noteworthy changes that weren't mentioned above
     - Do not add a list of modified files
+* Comments shall be handled in the following way:
+  - Use englishe language
+  - Only create / update a class comment to explain a class / record / struct
+  - Do not create / update comments members of a class / record / struct
+  - Create / update / leave comments for methods and properties in interfaces

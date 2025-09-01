@@ -17,8 +17,6 @@
         <vm:MainWindowViewModel />
     </Design.DataContext>
 
-
-
     <Grid>
         <!-- Main content -->
         <Grid Name="MainContent">

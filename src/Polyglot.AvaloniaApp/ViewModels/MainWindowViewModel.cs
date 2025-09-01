@@ -42,8 +42,6 @@ public sealed class MainWindowViewModel : ViewModelBase
     private readonly Workspace _workspaceModel = WorkspaceHelpers.CreateFakeWorkspace();
     private PreferencesOptions _preferencesOptions;
 
-    // Parameterless constructor for Avalonia Designer
-    // Creates lightweight default options and a basic localization service
     public MainWindowViewModel() : this(
         Options.Create(CreateDesignTimePreferences()),
         new AppLocalizationService())
@@ -95,10 +93,8 @@ public sealed class MainWindowViewModel : ViewModelBase
     {
         _preferencesOptions = hotKeyOptions.Value;
 
-        // Initialize Workspace model and its ViewModel
         Workspace = new WorkspaceViewModel(_workspaceModel);
 
-        // Commands
         OpenPreferencesDialog = ReactiveCommand.CreateFromTask(async () =>
         {
             PreferencesOptions =
@@ -114,7 +110,6 @@ public sealed class MainWindowViewModel : ViewModelBase
         CloseOverlay = ReactiveCommand.CreateFromTask(async () => await HideOverlay.Handle(Unit.Default));
         ExecuteExitApplication = ReactiveCommand.CreateFromTask(async () => await ExitApplication.Handle(Unit.Default));
 
-        // Motion commands
         MotionBackCommand = ReactiveCommand.Create(MoveBack);
         MotionLeftCommand = ReactiveCommand.Create(() => Workspace.MoveLeft());
         MotionRightCommand = ReactiveCommand.Create(() => Workspace.MoveRight());
@@ -127,7 +122,6 @@ public sealed class MainWindowViewModel : ViewModelBase
 
     public ICommand OpenPreferencesDialog { get; }
 
-    // Motion commands
     public ICommand MotionBackCommand { get; }
     public ICommand MotionLeftCommand { get; }
     public ICommand MotionRightCommand { get; }
